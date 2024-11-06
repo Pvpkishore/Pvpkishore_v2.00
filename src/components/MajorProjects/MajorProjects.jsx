@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import github from "../../assets/icons-white/github-white-icon.svg";
+import github from "../../assets/icons-white/github-white-icon.png";
 import passop from  "../../assets/images/projects/PassOp.png";
 import GitHubGlazer from "../../assets/images/projects/GitG.png";
 import Bookstore from "../../assets/images/projects/Bookstore.png"
