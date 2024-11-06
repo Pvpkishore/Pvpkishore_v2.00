@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import leetcode from "../../assets/icons-white/icons8-Leetcode-white.png";
 import linkedin from "../../assets/icons-white/icons8-linkedin-white.png";
-import github from "../../assets/icons-white/github-white-icon.svg";
+import github from "../../assets/icons-white/github-white-icon.png";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
