@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import githubIcon from "../../assets/icons-white/github-white-icon.svg";
+import githubIcon from "../../assets/icons-white/github-white-icon.png";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlitchText from "../Effects/Glitch";
