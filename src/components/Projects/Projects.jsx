@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import githubIcon from "../../assets/logos/icons8-github.svg";
+import githubIcon from "../../assets/icons-white/github-white-icon.svg";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GlitchText from "../Effects/Glitch";
 
 const Projects = () => {
 	const [showMore, setShowMore] = useState(false);
@@ -14,23 +15,13 @@ const Projects = () => {
 	const projects = [
 		// {
 		// 	frontmatter: {
-		// 		title: "Minutes Maker",
-		// 		html: "<p>Minutes Maker simplifies meeting documentation by transforming audio recordings into organized minutes with accurate transcriptions and concise summaries. It ensures efficient file handling and a user-friendly interface for seamless operation.</p>",
-		// 		tech: ["Javascript", "NodeJS", "HTML/CSS", "GPT-4", "Deepgram Nova"],
+		// 		title: "AI talking Chatbot",
+		// 		html: "<p>The AI Talking Bot App is an intelligent chatbot built using Express.js, React.js, and OpenAI. It engages users in natural, dynamic conversations powered by AI, offering responses based on advanced language models. The backend handles API requests with Express.js, while the frontend, developed in React.js</p>",
+		// 		tech: ["Express.js", "React.js", "Open AI"],
 		// 	},
-		// 	github: "https://github.com/example/project4",
-		// 	external: "https://minutesmaker.arunnats.com/",
+		// 	github: "https://github.com/Pvpkishore/Keeper-App",
+		// 	external: "",
 		// },
-		
-		{
-			frontmatter: {
-				title: "AI talking Chatbot",
-				html: "<p>The AI Talking Bot App is an intelligent chatbot built using Express.js, React.js, and OpenAI. It engages users in natural, dynamic conversations powered by AI, offering responses based on advanced language models. The backend handles API requests with Express.js, while the frontend, developed in React.js</p>",
-				tech: ["Express.js", "React.js", "Open AI"],
-			},
-			github: "https://github.com/Pvpkishore/Keeper-App",
-			external: "",
-		},
 		{
 			frontmatter: {
 				title: "Lets chat",
@@ -38,7 +29,7 @@ const Projects = () => {
 				tech: ["Express.js", "Javascript", "socket.io"],
 			},
 			github: "https://github.com/Pvpkishore/Lets-chat",
-			external: "",
+			external: "https://github-profile-finder-kishore.vercel.app/",
 		},
 		{
 			frontmatter: {
@@ -80,15 +71,6 @@ const Projects = () => {
 			github: "https://github.com/Pvpkishore/Projects_List",
 			external: "https://my-projects-kishore.vercel.app/",
 		},
-		// {
-		// 	frontmatter: {
-		// 		title: "Portfolio V1.0",
-		// 		html: "<p>This portfolio website, built with HTML, CSS, JavaScript, and jQuery, showcases my skills and projects in a visually appealing format. It features dedicated sections for my work, an about me page, and a contact form, allowing visitors to easily explore my experience and reach out for collaboration.</p>",
-		// 		tech: ["Javascript", "HTML/CSS"],
-		// 	},
-		// 	github: "https://github.com/Pvpkishore/pvpkishore.com",
-		// 	external: "https://pvpkishore-com.vercel.app/",
-		// },
 
 	];
 
@@ -131,12 +113,12 @@ const Projects = () => {
 	}, []);
 
 	return (
-		<section className="py-3 bg-base-100 p-3">
+		<section className="py-3 bg-slate-950 p-3">
 			<h2
 				ref={titleRef}
 				className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-8"
 			>
-				Other Projects
+              <GlitchText ref={titleRef} text="Other Projects" />
 			</h2>
 			<div ref={projectsRef} className="container md:mx-auto px-4">
 				<div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
@@ -168,7 +150,7 @@ const Projects = () => {
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<button className="btn btn-outline btn-sm">Visit</button>
+										<button className="btn btn-outline btn-sm border border-blue-900  font-poppins text-slate-300 hover:bg-primary transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900">Visit</button>
 									</a>
 								)}
 							</div>
@@ -178,7 +160,7 @@ const Projects = () => {
 										href={external}
 										target="_blank"
 										rel="nofollow noopener noreferrer"
-										className="text-primary font-poppins font-semibold text-lg hover:text-secondary"
+										className="text-violet-200 font-poppins font-semibold text-lg hover:text-red-100"
 									>
 										{frontmatter.title}
 									</a>
@@ -189,7 +171,7 @@ const Projects = () => {
 								)}
 							</div>
 							<div
-								className="text-sm md:text-lg leading-relaxed mb-4 font-roboto text-secondary text-justify"
+								className="text-sm md:text-lg leading-relaxed mb-4 font-roboto text-gray-300 text-justify"
 								dangerouslySetInnerHTML={{ __html: frontmatter.html }}
 							/>
 							{frontmatter.tech && (
@@ -197,7 +179,7 @@ const Projects = () => {
 									{frontmatter.tech.map((item, i) => (
 										<li
 											key={i}
-											className="text-xs md:text-sm font-space font-bold text-secondary mr-2 mb-1"
+											className="text-xs md:text-sm font-space font-bold text-purple-100 mr-2 mb-1"
 										>
 											{item}
 										</li>
@@ -210,7 +192,7 @@ const Projects = () => {
 
 				<button
 					onClick={() => setShowMore(!showMore)}
-					className="btn btn-outline btn-md btn-primary font-poppins mt-8 mx-auto block"
+					className="btn btn-outline btn-md border border-blue-900  text-slate-300 hover:bg-primary transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900 font-poppins mt-8 mx-auto block"
 				>
 					Show {showMore ? "Less" : "More"}
 				</button>

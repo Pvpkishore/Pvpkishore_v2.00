@@ -7,7 +7,8 @@ import numpy from "../../assets/logos/icons8-numpy.svg";
 import pandas from "../../assets/logos/icons8-pandas.svg";
 import aws from "../../assets/logos/icons8-amazon-aws.png";
 import docker from "../../assets/logos/icons8-docker.png";
-import git from "../../assets/logos/icons8-git.png";
+import git from "../../assets/icons-white/git-icon.svg";
+import GlitchText from "../Effects/Glitch";
 
 const Libraries = () => {
 	const sections = useRef([]);
@@ -75,7 +76,7 @@ const Libraries = () => {
 				ref={headingRef}
 				className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-2 md:mb-6"
 			>
-				Libraries & Services I use
+			<GlitchText ref={headingRef} text="Libraries & Services I use" />
 			</h2>
 			<div className="flex flex-wrap justify-start my-2">
 				{libData.map((item, index) => (
@@ -88,7 +89,7 @@ const Libraries = () => {
 						<img
 							src={item.icon}
 							alt={item.title}
-							className="w-auto h-8 md:h-10 lg:h-12 mx-2 object-contain transition-transform transform hover:translate-y-[-5px]"
+							className="w-auto h-8 md:h-10 lg:h-12 mx-2 object-contain transition-transform transform hover:scale-110 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
 							style={{ maxWidth: "100%" }}
 						/>
 						<h3 className="text-sm md:text-lg font-semibold mt-2 text-secondary text-center">

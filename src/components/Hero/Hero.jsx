@@ -1,11 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import picture from "../../assets/images/My Avatar1.svg";
-import leetcode from "../../assets/logos/icons8-leetcode.png";
-import linkedin from "../../assets/logos/icons8-linkedin.svg";
-import github from "../../assets/logos/icons8-github.svg";
+import leetcode from "../../assets/icons-white/Leetcode.png";
+import linkedin from "../../assets/icons-white/linkedin (1).png";
+import github from "../../assets/icons-white/github.png";
 import TypedAnimation from "../Typed/Typed";
 import { gsap } from "gsap";
 import resume from "../../assets/resume/Pvpkishore_resume.pdf";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GlitchText from "../Effects/Glitch";
+import RippleButton from "../Effects/RippleEffect";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = () => {
 	const hiRef = useRef(null);
@@ -14,6 +19,7 @@ const AboutSection = () => {
 	const typedTextRef = useRef(null);
 	const descriptionRef = useRef(null);
 	const logosRef = useRef([]);
+
 
 	useEffect(() => {
 		gsap.fromTo(
@@ -54,36 +60,37 @@ const AboutSection = () => {
 			}
 		);
 	}, []);
+	
 
 	return (
-		<div className="flex flex-col md:flex-row items-center p-3 lg:py-6 py-3">
+		<div className="flex flex-col md:flex-row items-center p-3 lg:py-6 py-3 mt-10 ">
 			<div className="md:w-4/6 lg:w-2/3 mt-10 md:mt-0 sm:mt-0">
 				<h4
 					ref={hiRef}
-					className="2xl:text-3xl text-2xl font-semibold text-primary-content font-poppins text-left mb-2"
+					className="2xl:text-3xl text-2xl font-semibold text-gray-300 font-poppins text-left mb-2"
 				>
 					Hi, my name is
 				</h4>
 				<h1
-					ref={nameRef}
-					className="2xl:text-8xl lg:text-7xl text-5xl font-poppins font-bold text-left mb-2"
+                    ref={nameRef}
+					className="2xl:text-8xl cursor-default lg:text-7xl text-5xl text-sky-400 font-poppins font-bold text-left mb-2"
 				>
-					PVP Kishore.
+					<GlitchText ref={nameRef} text="PVP Kishore."/>
 				</h1>
 				<h4
 					ref={typedTextRef}
-					className="2xl:text-7xl lg:text-5xl text-2xl font-bold text-primary-content font-poppins text-left mb-3"
+					className="2xl:text-7xl lg:text-5xl text-2xl font-bold text-gray-400 font-poppins text-left mb-3"
 				>
 					<TypedAnimation />
 				</h4>
 				<p
 					ref={descriptionRef}
-					className="2xl:text-3xl lg:text-lg text-sm text-primary font-roboto md:text-justify mb-5"
+					className="2xl:text-3xl lg:text-lg text-sm text-slate-100 font-roboto md:text-justify mb-5"
 				>
 					I am a year three student at{" "}
 					<a
 						href="https://nitc.ac.in/"
-						className="text-accent font-bold font-roboto"
+						className="text-teal-200  font-bold font-roboto"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -95,43 +102,42 @@ const AboutSection = () => {
 				</p>
 				<ul className="flex flex-wrap">
 					<li className="m-3">
-						<a href="https://www.linkedin.com/in/ponnala-venkata-padma-kishor-76679326a/">
+						<a href="https://www.linkedin.com/in/ponnala-venkata-padma-kishor-76679326a/" target="_blank">
 							<img
 								ref={(el) => (logosRef.current[0] = el)}
 								src={linkedin}
 								alt="LinkedIn"
-								className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8"
+								className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8 hover:scale-110 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
 							/>
 						</a>
 					</li>
 					<li className="m-3">
-						<a href="https://github.com/Pvpkishore">
+						<a href="https://github.com/Pvpkishore" target="_blank">
 							<img
 								ref={(el) => (logosRef.current[1] = el)}
 								src={github}
 								alt="GitHub"
-								className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8"
+								className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8 fill-white hover:scale-110 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
 							/>
 						</a>
 					</li>
 					<li className="m-3">
-						<a href="https://leetcode.com/u/PONNALA-VENKATA-PADMA-KISHORE/">
+						<a href="https://leetcode.com/u/PONNALA-VENKATA-PADMA-KISHORE/" target="_blank">
 							<img
 								ref={(el) => (logosRef.current[2] = el)}
 								src={leetcode}
 								alt="LeetCode"
-								className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8"
+								className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8 hover:scale-110 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
 							/>
 						</a>
 					</li>
 					<li className="m-3 my-auto">
 						<a href={resume} target="_blank">
-							<button
-								ref={(el) => (logosRef.current[3] = el)}
-								className="btn btn-ghost btn-outline text-primary font-poppins"
-							>
-								Resume
-							</button>
+				
+							<RippleButton ref={(el) => (logosRef.current[3] = el)} 
+							className="btn text-slate-100  font-poppins">
+                                      Resume
+                           </RippleButton>
 						</a>
 					</li>
 				</ul>
@@ -141,7 +147,7 @@ const AboutSection = () => {
 					ref={picRef}
 					src={picture}
 					alt="Profile"
-				className="w-full md:max-w-xs lg:max-w-sm xl:max-w-md 2xl:max-w-lg m-auto p-8 md:p-9 h-auto "
+				className="w-full md:max-w-xs lg:max-w-sm xl:max-w-md 2xl:max-w-lg m-auto p-8 md:p-9 h-auto border-sky-70000 "
 				/>
 			</div>
 		</div>

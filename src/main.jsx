@@ -9,10 +9,10 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<div className="w-[96vw] m-auto relative z-50 mt-5 bg-base-100 rounded-full">
+		<div className="w-[100vw] m-auto relative z-50 mt-5 bg-slate-950 rounded-full">
 			<Navbar />
 		</div>
-		<div className="flex flex-row bg-base-100">
+		<div className="flex flex-row bg-slate-950">
 			<div className="fixed top-0 left-0 h-full z-0">
 				<Socials />
 			</div>

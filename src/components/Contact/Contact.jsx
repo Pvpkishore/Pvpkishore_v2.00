@@ -1,10 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GlitchText from "../Effects/Glitch";
 
 const Languages = () => {
 	const sectionRef = useRef(null);
 	const mailRef = useRef(null);
+	const headingRef=  useRef(null);
 
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger);
@@ -23,7 +25,13 @@ const Languages = () => {
 			sectionRef.current,
 			{ opacity: 0, y: 50 },
 			{ opacity: 1, y: 0, duration: 1, ease: "power2.out" }
-		);
+		)
+		tl.fromTo(
+            headingRef.current,
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+			"<"
+        );
 
 		tl.fromTo(
 			mailRef.current,
@@ -37,21 +45,31 @@ const Languages = () => {
 		<section
 			ref={sectionRef}
 			id="contact"
-			className="flex flex-col p-3 bg-base-100 min-h-[20vh]"
+			className="flex flex-col p-3 bg-slate-950 min-h-[20vh]"
 		>
-			<h2 className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-1">
-				Reach me at
+			<h2 ref={sectionRef} className="text-2xl md:text-3xl font-bold font-poppins text-slate-200 mb-1">
+				<GlitchText ref={headingRef} text="Get in touch" />
 			</h2>
 			<div className=" m-3 max-w-[70%]">
-				<h1 className="text-secondary text-md md:text-xl font-poppins mt-2">
+				<h1 className="text-purple-200  text-md md:text-xl font-poppins mt-2">
 					Send me an email at
 				</h1>
 				<a
 					ref={mailRef}
 					href="mailto:pvpkishore09@gmail.com"
-					className="text-lg md:text-2xl font-space font-bold text-primary hover:underline"
+					className="text-lg md:text-2xl font-space font-bold text-slate-300 hover:underline "
 				>
-					pvpkishore09@gmail.com
+					<div className="flex flex-row ">
+						<lord-icon
+							src="https://cdn.lordicon.com/ozlkyfxg.json"
+							trigger="hover"
+							stroke="bold"
+							colors="primary:#e4e4e4,secondary:#2516c7"
+							style={{ width: "40px", height: "40px" }} // Corrected style syntax
+						></lord-icon>
+						pvpkishore09@gmail.com
+					</div>
+
 				</a>
 				<h1 className="max-w-[100%] text-secondary text-md md:text-xl font-poppins ">
 					and let's discuss how we can take over the world with sentient robot

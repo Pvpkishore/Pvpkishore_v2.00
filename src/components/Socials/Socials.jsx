@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import leetcode from "../../assets/logos/icons8-leetcode.png";
-import linkedin from "../../assets/logos/icons8-linkedin.svg";
-import github from "../../assets/logos/icons8-github.svg";
+import leetcode from "../../assets/icons-white/icons8-Leetcode-white.png";
+import linkedin from "../../assets/icons-white/icons8-linkedin-white.png";
+import github from "../../assets/icons-white/github-white-icon.svg";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -32,7 +32,7 @@ const Socials = () => {
 	return (
 		<div
 			ref={socialsRef}
-			className="max-sm:hidden w-[5vw] h-screen bg-base-100 flex flex-col justify-end items-center pl-4 sm:pl-2"
+			className="max-sm:hidden w-[5vw] h-screen bg-slate-950 flex flex-col justify-end items-center pl-4 sm:pl-2"
 		>
 			<a href="https://www.linkedin.com/in/ponnala-venkata-padma-kishor-76679326a/">
 				<img src={linkedin} alt="LinkedIn" className="w-8 h-8 m-2" />
@@ -44,7 +44,7 @@ const Socials = () => {
 				<img src={leetcode} alt="LeetCode" className="w-auto h-8 m-2" />
 			</a>
 			<div className="w-full flex justify-center">
-				<div className="bottom-0 h-[11vh] w-0.5 bg-gray-800"></div>
+				<div className="bottom-0 h-[11vh] w-0.5 bg-blue-400"></div>
 			</div>
 		</div>
 	);

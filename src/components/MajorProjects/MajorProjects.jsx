@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import github from "../../assets/logos/icons8-github.svg";
-import Codepen from "../../assets/images/projects/codepen.png";
+import github from "../../assets/icons-white/github-white-icon.svg";
 import passop from  "../../assets/images/projects/PassOp.png";
-import Videoconverter from "../../assets/images/projects/yt.png";
-import GitHubGlazer from "../../assets/logos/GitG.png";
+import GitHubGlazer from "../../assets/images/projects/GitG.png";
+import Bookstore from "../../assets/images/projects/Bookstore.png"
+import GlitchText from "../Effects/Glitch";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,23 +63,6 @@ const Featured = () => {
 
 	// Sample data
 	const featuredProjects = [
-		// {
-		// 	frontmatter: {
-		// 		external: "https://github.com/Pvpkishore/CodePen-with-React",
-		// 		title: "Code Editor",
-		// 		tech: [
-		// 			"Javascript",
-		// 			"React.js",
-		// 			"Code mirror",
-		// 		],
-		// 		github: "https://github.com/Pvpkishore/CodePen-with-React",
-		// 		cover: {
-		// 			src: Codepen,
-		// 			alt: "Code pen",
-		// 		},
-		// 	},
-		// 	html: "<p>I developed an interactive project on CodePen utilizing ReactJS, HTML, CSS, and CodeMirror. This project showcases my ability to create dynamic and responsive web applications with a focus on clean user interfaces and real-time code editing functionality, leveraging the powerful CodeMirror library.</p>",
-		// },
 		{
 			frontmatter: {
 				external: "https://passop-kishore.vercel.app/",
@@ -99,9 +82,41 @@ const Featured = () => {
 			},
 			html: "<p>Passop is a secure password manager that allows users to store website URLs, usernames, and passwords. It offers features to easily add, edit, or delete entries, providing a safe and efficient way to manage sensitive login credentials.</p>",
 		},
+		// {
+		// 	frontmatter: {
+		// 		external: "https://youtube-videoconverter.onrender.com/",
+		// 	    title: "youtube video converter",
+		// 		tech: ["Html/css","javascript","NodeJs","Bootstrap"],
+		// 		github: "https://github.com/Pvpkishore/Youtube-videoconverter",
+		// 		cover: {
+		// 			src:  Videoconverter,
+		// 			alt: " Videoconverter"
+		// 		},
+		// 	},
+		//     html: "<p>The YouTube downloader converts YouTube URLs into downloadable files, ensuring seamless video retrieval and user interaction with efficient server-side logic and session management for a smooth experience.</p>",
+		// },
 		{
 			frontmatter: {
-				external: "https://git-hub-glazer.vercel.app/",
+				// external: "https://passop-kishore.vercel.app/",
+				title: "Book Store",
+				tech: [
+					"React js",
+					"Mongo DB",
+					"Node.Js",
+					"Express js",
+					"Tailwind css",
+				],
+				// github: "https://github.com/Pvpkishore/PassOP-MERN-",
+				cover: {
+					src: Bookstore,
+					alt: "Bookstore",
+				},
+			},
+			html: "<p>Book den is mern project which have different books to access for free books and for paid books you need to access with login authentication</p>",
+		},
+		{
+			frontmatter: {
+				external: "https://github-glazer-kishore.vercel.app/",
 			    title: "GitHub Glazer",
 				tech: ["Typescript","React","OpenAI","Tailwindcss"],
 				github: "https://github.com/Pvpkishore/GitHub_glazer",
@@ -112,28 +127,15 @@ const Featured = () => {
 			},		
 			html: "<p>Built with Typescript and React on Vite and using the OpenAI API for generating words of encouragement, the Github Glazer app is perfect to encourage you on your path to be an amazing software developer.</p>",	
 		},
-		{
-			frontmatter: {
-				external: "https://youtube-videoconverter.onrender.com/",
-			    title: "youtube video converter",
-				tech: ["Html/css","javascript","NodeJs","Bootstrap"],
-				github: "https://github.com/Pvpkishore/Youtube-videoconverter",
-				cover: {
-					src:  Videoconverter,
-					alt: " Videoconverter"
-				},
-			},
-		    html: "<p>The YouTube downloader converts YouTube URLs into downloadable files, ensuring seamless video retrieval and user interaction with efficient server-side logic and session management for a smooth experience.</p>",
-		},
 	];
 
 	return (
-		<section ref={sectionRef} id="projects" className="py-3 bg-base-100 p-3">
+		<section ref={sectionRef} id="projects" className="py-3 bg-slate-950 p-3">
 			<h2
 				ref={revealTitle}
 				className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-8"
 			>
-				Some Things I've Built
+				<GlitchText ref={revealTitle} text="Some Things I've Built"/>
 			</h2>
 			<div className="container mx-auto px-4">
 				<div>
@@ -160,7 +162,7 @@ const Featured = () => {
 										alt={frontmatter.cover.alt}
 										className="w-full "
 									/>
-									<div className="absolute inset-0 bg-secondary-content opacity-60 group-hover:opacity-20 transition-opacity duration-300 "></div>
+									<div className="absolute inset-0 bg-secondary-content opacity-40 group-hover:opacity-20 transition-opacity duration-300 "></div>
 								</a>
 							</div>
 
@@ -169,16 +171,16 @@ const Featured = () => {
 								className="col-span-7 md:col-span-6 "
 							>
 								<div className="p-1 md:p-6 border-r-2 md:border-r-4 border-secondary-content transition-transform transform hover:translate-y-[-5px]">
-									<h4 className="text-sm md:text-base font-space font-bold text-secondary mb-2">
+									<h4 className="text-sm md:text-base font-space font-bold  text-purple-100   mb-2">
 										Featured Project
 									</h4>
-									<h5 className="text-xl md:text-2xl text-primary font-poppins font-semibold md:mb-4 mb-2">
+									<h5 className="text-xl md:text-2xl text-gray-100 font-poppins font-semibold md:mb-4 mb-2">
 										{frontmatter.external ? (
 											<a
 												href={frontmatter.external}
 												target="_blank"
 												rel="nofollow noopener noreferrer"
-												className="hover:text-secondary"
+												className="hover:text-red-100 "
 											>
 												{frontmatter.title}
 											</a>
@@ -187,7 +189,7 @@ const Featured = () => {
 										)}
 									</h5>
 									<div
-										className="text-sm md:text-lg leading-relaxed font-roboto mb-2 md:mb-4 text-justify"
+										className="text-sm md:text-lg leading-relaxed font-roboto mb-2 md:mb-4 text-justify text-gray-300 "
 										dangerouslySetInnerHTML={{ __html: html }}
 									/>
 									{frontmatter.tech && (
@@ -195,7 +197,7 @@ const Featured = () => {
 											{frontmatter.tech.map((tech, i) => (
 												<li
 													key={i}
-													className="font-space font-semibold text-xs md:text-smish text-secondary mr-2 mb-2 whitespace-nowrap"
+													className="font-space font-semibold text-xs md:text-smish text-purple-100  mr-2 mb-2 whitespace-nowrap"
 												>
 													{tech}
 												</li>
@@ -212,7 +214,7 @@ const Featured = () => {
 												aria-label="GitHub Link"
 											>
 												<img
-													className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8"
+													className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8 fill-white"
 													src={github}
 													alt="GitHub"
 												/>
@@ -226,7 +228,7 @@ const Featured = () => {
 												className="text-lightestSlate hover:text-primary"
 												aria-label="External Link"
 											>
-												<button className="btn btn-outline btn-md btn-primary font-poppins">
+												<button className="btn btn-outline btn-md border border-blue-900  font-poppins text-slate-300 hover:bg-primary transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900">
 													Preview
 												</button>
 											</a>

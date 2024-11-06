@@ -1,14 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import react from "../../assets/logos/icons8-react.png";
-import node from "../../assets/logos/icons8-node-js.svg";
-import fast from "../../assets/logos/icons8-fastapi.png";
-import tailwind from "../../assets/logos/icons8-tailwind-css.svg";
-import express from "../../assets/logos/icons8-express-js.svg";
-import bootstrap from "../../assets/logos/icons8-bootstrap.svg";
-import mongo from "../../assets/logos/icons8-mongodb.png";
+import react from "../../assets/icons-white/react-js-icon.svg";
+import node from "../../assets/icons-white/node-js-icon.svg";
+// import fast from "../../assets/logos/icons8-fastapi.png";
+import tailwind from "../../assets/icons-white/tailwind-css-icon.svg";
+import express from "../../assets/icons-white/icons8-express-js.png";
+import bootstrap from "../../assets/icons-white/bootstrap-5-logo-icon.svg";
+import mongo from "../../assets/icons-white/mongodb-icon.svg";
 import mysql from "../../assets/logos/icons8-mysql.png";
+import GlitchText from "../Effects/Glitch";
 
 
 
@@ -66,7 +67,7 @@ const Frameworks = () => {
 		{ title: "Express.Js", icon: express },
 		{ title: "React.Js", icon: react },
 		{ title: "Node.js", icon: node },
-		{ title: "FastAPI", icon: fast },
+		// { title: "FastAPI", icon: fast },
 		{ title: "Tailwind CSS", icon: tailwind },
 		{ title: "Bootstrap", icon: bootstrap },
 		{ title: "MongoDB", icon: mongo },
@@ -79,7 +80,7 @@ const Frameworks = () => {
 				ref={headingRef}
 				className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-2 md:mb-6"
 			>
-				Frameworks and Databases I like
+				<GlitchText ref={headingRef} text="Frameworks and Databases I like" />
 			</h2>
 			<div className="flex flex-wrap justify-start my-2">
 				{frameData.map((item, index) => (
@@ -92,7 +93,7 @@ const Frameworks = () => {
 						<img
 							src={item.icon}
 							alt={item.title}
-							className="w-auto h-8 md:h-10 lg:h-12 mx-2 object-contain transition-transform transform hover:translate-y-[-5px]"
+							className="w-auto h-8 md:h-10 lg:h-12 mx-2 object-contain transition-transform transform hover:scale-110 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
 							style={{ maxWidth: "100%" }}
 						/>
 						<h3 className="text-sm md:text-lg font-semibold mt-2 text-secondary text-center">

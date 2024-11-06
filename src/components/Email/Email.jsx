@@ -29,16 +29,16 @@ const EmailCont = () => {
 	return (
 		<div
 			ref={emailRef}
-			className="max-sm:hidden w-[5vw] h-screen bg-base-100 flex flex-col justify-end items-center pr-4 sm:pr-2"
+			className="max-sm:hidden w-[5vw] h-screen bg-slate-950 flex flex-col justify-end items-center pr-4 sm:pr-2"
 		>
 			<a
-				className="text-black transform font-poppins rotate-90 text-xl mb-32"
+				className="text-sky-200 transform font-poppins rotate-90 text-xl mb-32"
 				href="mailto:pvpkishore09@gmail.com"
 			>
 				pvpkishore09@gmail.com
 			</a>
 			<div className="w-full flex justify-center">
-				<div className="bottom-0 h-[8vh] w-0.8 bg-base-100"></div>
+				<div className="bottom-0 h-[11vh] w-0.5 bg-blue-400"></div>
 			</div>
 		</div>
 	);
