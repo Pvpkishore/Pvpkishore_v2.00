@@ -72,8 +72,8 @@ const Languages = () => {
 
 				</a>
 				<h1 className="max-w-[100%] text-secondary text-md md:text-xl font-poppins ">
-					and let's discuss how we can take over the world with sentient robot
-					cats.
+				I'm always open to discussing new projects, creative ideas, or opportunities to be a part of your vision.
+				Feel free to reach out to me using the my email
 				</h1>
 			</div>
 		</section>
