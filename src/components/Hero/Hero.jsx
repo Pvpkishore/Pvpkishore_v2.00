@@ -9,6 +9,7 @@ import resume from "../../assets/resume/Pvpkishore_resume.pdf";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GlitchText from "../Effects/Glitch";
 import RippleButton from "../Effects/RippleEffect";
+import TiltImage from "../Effects/imagetilt";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -142,13 +143,14 @@ const AboutSection = () => {
 					</li>
 				</ul>
 			</div>
-			<div className="md:w-2/6 lg:w-1/3">
-				<img
-					ref={picRef}
-					src={picture}
-					alt="Profile"
-				className="w-full md:max-w-xs lg:max-w-sm xl:max-w-md 2xl:max-w-lg m-auto p-8 md:p-9 h-auto border-sky-70000 "
-				/>
+			<div ref={picRef} className="md:w-2/6 lg:w-1/3">
+				<TiltImage
+                src={picture} // Replace with your image URL
+                alt="3D Tilt Effect"
+				width={300}
+                height={300}
+				className="w-full md:max-w-xs lg:max-w-sm xl:max-w-md 2xl:max-w-lg m-auto p-10 md:p-9 h-auto border-sky-70000"
+            />
 			</div>
 		</div>
 	);
