@@ -5,7 +5,7 @@ import linkedin from "../../assets/icons-white/linkedin (1).png";
 import github from "../../assets/icons-white/github.png";
 import TypedAnimation from "../Typed/Typed";
 import { gsap } from "gsap";
-import resume from "../../assets/resume/Pvpkishore_resume.pdf";
+import resume from "../../assets/resume/Pvpkishore_SoftwareDevloper_resume.pdf";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GlitchText from "../Effects/Glitch";
 import RippleButton from "../Effects/RippleEffect";
