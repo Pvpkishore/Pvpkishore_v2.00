@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import c from "../../assets/icons-white/icons8-c-96.png";
-import cpp from "../../assets/icons-white/icons8-c++.png";
-import python from "../../assets/icons-white/icons8-python.png";
-import js from "../../assets/icons-white/icons8-js.png";
+import c from "../../assets/whiteicons/icons8-c-10.png";
+import cpp from "../../assets/whiteicons/icons8-c++.svg";
+import python from "../../assets/whiteicons/icons8-python.svg";
+import js from "../../assets/whiteicons/icons8-javascript.svg";
 import GlitchText from "../Effects/Glitch";
 
 const Languages = () => {

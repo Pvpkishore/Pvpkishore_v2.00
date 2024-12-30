@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import picture from "../../assets/images/My Avatar1.svg";
-import leetcode from "../../assets/icons-white/Leetcode.png";
-import linkedin from "../../assets/icons-white/linkedin (1).png";
-import github from "../../assets/icons-white/github.png";
+import leetcode from "../../assets/icons-white/icons8-Leetcode-white.png";
+import linkedin from "../../assets/icons-white/icons8-linkedin-white.png";
+import github from "../../assets/icons-white/github-white-icon.png";
 import TypedAnimation from "../Typed/Typed";
 import { gsap } from "gsap";
 import resume from "../../assets/resume/Pvpkishore_SoftwareDevloper_resume.pdf";

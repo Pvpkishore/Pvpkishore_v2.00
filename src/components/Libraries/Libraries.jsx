@@ -7,7 +7,7 @@ import numpy from "../../assets/logos/icons8-numpy.svg";
 import pandas from "../../assets/logos/icons8-pandas.svg";
 import aws from "../../assets/logos/icons8-amazon-aws.png";
 import docker from "../../assets/logos/icons8-docker.png";
-import git from "../../assets/icons-white/git-icon.svg";
+import git from "../../assets/whiteicons/icons8-git.svg";
 import GlitchText from "../Effects/Glitch";
 
 const Libraries = () => {
