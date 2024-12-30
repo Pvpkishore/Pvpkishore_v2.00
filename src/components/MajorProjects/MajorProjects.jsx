@@ -106,7 +106,7 @@ const Featured = () => {
 					"Express js",
 					"Tailwind css",
 				],
-				// github: "https://github.com/Pvpkishore/PassOP-MERN-",
+				github: "https://github.com/Pvpkishore/PassOP-MERN-",
 				cover: {
 					src: Bookstore,
 					alt: "Bookstore",
