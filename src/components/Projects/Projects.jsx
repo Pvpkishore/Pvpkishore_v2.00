@@ -122,7 +122,7 @@ const Projects = () => {
 			</h2>
 			<div ref={projectsRef} className="container md:mx-auto px-4">
 				<div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-					{projectsToShow.map(({ frontmatter, github, external }, i) => (
+					{projectsToShow.map(({ frontmatter, github,external }, i) => (
 						<div
 							key={i}
 							ref={(el) => (revealProjects.current[i] = el)}
