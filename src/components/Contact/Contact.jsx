@@ -73,7 +73,7 @@ const Languages = () => {
 				</a>
 				<h1 className="max-w-[100%] text-secondary text-md md:text-xl font-poppins ">
 				I'm always open to discussing new projects, creative ideas, or opportunities to be a part of your vision.
-				Feel free to reach out to me using the my email
+				Feel free to reach out to me using my email
 				</h1>
 			</div>
 		</section>

@@ -29,7 +29,7 @@ const Projects = () => {
 				tech: ["Express.js", "Javascript", "socket.io"],
 			},
 			github: "https://github.com/Pvpkishore/Lets-chat",
-			// external: "https://github-profile-finder-kishore.vercel.app/",
+			external: "https://github.com/Pvpkishore/Lets-chat",
 		},
 		{
 			frontmatter: {

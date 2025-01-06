@@ -6,6 +6,7 @@ import github from "../../assets/icons-white/github-white-icon.png";
 import passop from  "../../assets/images/projects/PassOp.png";
 import GitHubGlazer from "../../assets/images/projects/GitG.png";
 import Bookstore from "../../assets/images/projects/Bookstore.png"
+import Linktree from "../../assets/images/projects/linktree.png"
 import GlitchText from "../Effects/Glitch";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -106,13 +107,13 @@ const Featured = () => {
 					"Express js",
 					"Tailwind css",
 				],
-				github: "https://github.com/Pvpkishore/PassOP-MERN-",
+				github: "https://github.com/Pvpkishore/Bookstore-Mern",
 				cover: {
 					src: Bookstore,
 					alt: "Bookstore",
 				},
 			},
-			html: "<p>Book den is mern project which have different books to access for free books and for paid books you need to access with login authentication</p>",
+			html: "<p>Book Store is a MERN stack web app with secure authentication,allowing users to browse, and buy books while managing profiles. React.js ensures a responsive interface, while Express.js, Node.js, and MongoDB handle data efficiently. It offers seamless navigation, scalability, and personalized recommendations for an optimized user experience.</p>",
 		},
 		{
 			frontmatter: {
@@ -126,6 +127,19 @@ const Featured = () => {
 				},
 			},		
 			html: "<p>Built with Typescript and React on Vite and using the OpenAI API for generating words of encouragement, the Github Glazer app is perfect to encourage you on your path to be an amazing software developer.</p>",	
+		},
+		{
+			frontmatter: {
+				external: "https://linktrekishore.vercel.app/",
+			    title: "Bittree",
+				tech: ["javascript","Nextjs","ExpressJs","Tailwindcss"],
+				github: "https://github.com/Pvpkishore/my-app",
+				cover: {
+					src: Linktree,
+					alt: "Linktree"
+				},
+			},		
+			html: "<p>Bittree is a Linktree Clone a web app built with Next.js, Tailwind CSS, and Express.js, enabling users to create customizable link-sharing pages. With a responsive, modern UI, secure backend handling, and fast performance, it replicates Linktree's functionality while offering scalability, personalization, and seamless management of multiple links through a single URL.</p>",	
 		},
 	];
 
@@ -172,7 +186,7 @@ const Featured = () => {
 							>
 								<div className="p-1 md:p-6 border-r-2 md:border-r-4 border-secondary-content transition-transform transform hover:translate-y-[-5px]">
 									<h4 className="text-sm md:text-base font-space font-bold  text-purple-100   mb-2">
-										Featured Project
+										Personal Project
 									</h4>
 									<h5 className="text-xl md:text-2xl text-gray-100 font-poppins font-semibold md:mb-4 mb-2">
 										{frontmatter.external ? (
