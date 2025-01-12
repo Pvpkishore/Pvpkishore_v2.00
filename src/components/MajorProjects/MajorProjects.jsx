@@ -7,6 +7,7 @@ import passop from  "../../assets/images/projects/PassOp.png";
 import GitHubGlazer from "../../assets/images/projects/GitG.png";
 import Bookstore from "../../assets/images/projects/Bookstore.png"
 import Linktree from "../../assets/images/projects/linktree.png"
+import Devchronicles from "../../assets/images/projects/projectweb.png"
 import GlitchText from "../Effects/Glitch";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -140,6 +141,19 @@ const Featured = () => {
 				},
 			},		
 			html: "<p>Bittree is a Linktree Clone a web app built with Next.js, Tailwind CSS, and Express.js, enabling users to create customizable link-sharing pages. With a responsive, modern UI, secure backend handling, and fast performance, it replicates Linktree's functionality while offering scalability, personalization, and seamless management of multiple links through a single URL.</p>",	
+		},
+		{
+			frontmatter: {
+				external: "https://project-web-kishore.vercel.app/",
+			        title: "Devchronicles",
+				tech: ["javascript","Reactjs","Material UI","Tailwindcss"],
+				github: "https://github.com/Pvpkishore/Project_Web",
+				cover: {
+					src: Devchronicles,
+					alt: "Devchronicles"
+				},
+			},		
+			html: "<p>DevChronicles is a modern portfolio showcasing projects in JavaScript, React, Backend, and Full-Stack development. Built with React.js, Tailwind CSS, and Material UI, it features responsive design, smooth navigation, light/dark themes, and categorized sections. It highlights creativity, technical skills, and innovation, providing a seamless experience across all devices.</p>",	
 		},
 	];
 
