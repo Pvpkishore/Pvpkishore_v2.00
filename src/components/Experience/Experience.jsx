@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GlitchText from "../Effects/Glitch";
 
 const Experience = () => {
 	const [activeTabId, setActiveTabId] = useState(0);
