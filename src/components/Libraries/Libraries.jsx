@@ -8,6 +8,10 @@ import pandas from "../../assets/logos/icons8-pandas.svg";
 import aws from "../../assets/logos/icons8-amazon-aws.png";
 import docker from "../../assets/logos/icons8-docker.png";
 import git from "../../assets/whiteicons/icons8-git.svg";
+import restapi from "../../assets/whiteicons/Restapi.png";
+import postman from "../../assets/whiteicons/postman.png";
+import vscode from "../../assets/whiteicons/vscode.png";
+import rapidapi from "../../assets/whiteicons/Rapidapi.png";
 import GlitchText from "../Effects/Glitch";
 
 const Libraries = () => {
@@ -65,7 +69,11 @@ const Libraries = () => {
 		// { title: "Seaborn", icon: seaborn },
 		// { title: "NumPy", icon: numpy },
 		// { title: "Pandas", icon: pandas },
+		{ title: "Vscode", icon: vscode },
 		{ title: "Git", icon: git },
+		{ title: "Restapi", icon:restapi},
+		{ title: "Postman", icon: postman },
+	    { title: "Rapidapi", icon: rapidapi },
 		// { title: "AWS", icon: aws },
 		// { title: "Docker", icon: docker },
 	];

@@ -12,7 +12,7 @@ const BodyCont = () => {
 		<div className="w-[95vw] md:w-[90vw] m-auto bg-slate-950  min-h-svh overflow-hidden">
 			<div className="w-11/12 m-auto bg-slate-950   ">
 				<Hero />
-				{/* <Experience /> */}
+				<Experience />
 				<Stack />
 				<Featured />
 				<Projects />

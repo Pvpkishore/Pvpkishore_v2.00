@@ -8,6 +8,7 @@ const Experience = () => {
 	const tabs = useRef([]);
 	const panels = useRef([]);
 	const sectionRef = useRef(null);
+	const headingRef = useRef(null);
 
 	useEffect(() => {
 		gsap.registerPlugin(ScrollTrigger);
@@ -27,13 +28,20 @@ const Experience = () => {
 			{ opacity: 0, y: 50 },
 			{ opacity: 1, y: 0, duration: 1, ease: "power2.out" }
 		);
-
+		tl.fromTo(
+			headingRef.current,
+			{ opacity: 0, y: 50 },
+			{ opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+			"<" // ensures heading animation starts immediately after section animation starts
+		);
 		data.forEach((job, index) => {
 			tl.fromTo(
 				tabs.current[index],
 				{ opacity: 0, y: 20 },
-				{ opacity: 1, y: 0, duration: 0.5,
-				  ease: "power2.out" },
+				{
+					opacity: 1, y: 0, duration: 0.5,
+					ease: "power2.out"
+				},
 				"-=0.4"
 			);
 		});
@@ -68,33 +76,39 @@ const Experience = () => {
 
 	const data = [
 		{
-			company: "CoreStack",
-			title: "SWE Summer Intern",
-			url: "https://www.corestack.io/",
-			range: "May 2024 - July 2024",
+			company: "Prodigy Infotech",
+			title: "Full Stack Developer Intern",
+			url: "https://prodigyinfotech.dev/",
+			range: "Nov 2024 - Dec 2024",
 			html: `
-        <ul className="list-disc">
-          <li>• Developed data generation programs for Azure CSP schema with over 50 correlated fields.</li>
-          <li>• Created programs to randomly generate data and estimate user service billing costs.</li>
-          <li>• Implemented FastAPI servers for API endpoints handling billing details, product codes, and date ranges, with data hosted on MongoDB.</li>
-          <li>• Enabled pagination with token generation for efficient data retrieval and server caching.</li>
-        </ul>
+  <ul className="list-disc">
+    <li>• Built a Bookstore MERN project with user-friendly interfaces for browsing and managing books, leveraging React.js for frontend and MongoDB for data storage.</li>
+    <li>• Learned and implemented login authentication using bcrypt to ensure secure user access.</li>
+    <li>• Accessed and managed data from MongoDB efficiently for CRUD operations.</li>
+    <li>• Styled applications using Tailwind CSS and React.js for a modern and responsive design.</li>
+    <li>• Built a Stopwatch Web Application featuring advanced time-tracking functionality and lap recording capabilities.</li>
+    <li>• Created an Interactive Tic-Tac-Toe Game with engaging winning animations and an AI opponent for challenging gameplay.</li>
+  </ul>
       `,
-			buttonText: "CoreStack",
+			buttonText: "Prodigy Infotech",
 		},
 		{
-			company: "Hardware Lab - CSED, NITC",
-			title: "Summer Intern",
-			url: "https://hwlabnitc.github.io/",
-			range: "May 2024 - June 2024",
+			company: "Afame Technologies",
+			title: "Web Developer Intern",
+			url: "https://afame.in/web-development/",
+			range: "Oct 2024 - Nov 2024",
 			html: `
-        <ul className="list-disc">
-          <li>• Wrote MIPS code and created extensive study material for the Hardware Lab course at NITC.</li>
-          <li>• Focused on recursion and function parameter passing.</li>
-          <li>• Resulted in a more comprehensive and extensive documentation.</li>
-        </ul>
-      `,
-			buttonText: "HW Lab NITC",
+  <ul className="list-disc">
+    <li>• Developed a responsive personal portfolio website using React.js, Tailwind CSS, and GSAP, showcasing skills, projects, and contact information.</li>
+    <li>• Designed and implemented a visually appealing landing page with a structured layout, focusing on responsive design and effective use of HTML and CSS.</li>
+    <li>• Built an interactive calculator with advanced arithmetic functionalities using JavaScript, React.js, and Tailwind CSS.</li>
+    <li>• Gained expertise in creating dynamic and responsive web pages adhering to beginner-to-intermediate web development principles.</li>
+    <li>• Enhanced skills in modern web technologies, including React.js, Tailwind CSS, GSAP, HTML, and JavaScript.</li>
+    <li>• Learned the importance of clean code, effective debugging, and creating user-centric designs.</li>
+  </ul>
+`
+			,
+			buttonText: "Afametechnologies",
 		},
 	];
 
@@ -104,8 +118,8 @@ const Experience = () => {
 			ref={sectionRef}
 			className="flex flex-col p-3 py-8"
 		>
-			<h2 className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-8">
-				Where I've Worked
+			<h2 ref={headingRef} className="text-2xl md:text-3xl font-bold font-poppins text-gray-100 mb-8">
+				<GlitchText ref={headingRef} text="Where I've Worked" />
 			</h2>
 			<div className="flex flex-col md:flex-row max-w-2xl">
 				<div
@@ -123,11 +137,10 @@ const Experience = () => {
 							aria-selected={activeTabId === i ? true : false}
 							aria-controls={`panel-${i}`}
 							tabIndex={activeTabId === i ? "0" : "-1"}
-							className={`btn-square btn-ghost w-full text-left font-space font-bold text-sm py-2 px-4 min-w-[150px] ${
-								activeTabId === i
-									? "border-l-4 border-t-0 border-b-0 border-r-0 border-primary"
-									: "border-l-4 border-t-0 border-b-0 border-r-0 border-secondary-content"
-							}`}
+							className={`btn-square btn-ghost w-full text-left font-space text-slate-300 font-bold text-sm py-2 px-4 min-w-[150px] ${activeTabId === i
+								? "border-l-4 border-t-0 border-b-0 border-r-0 border-[#858DFF] text-[#858DFF]"
+								: "border-l-4 border-t-0 border-b-0 border-r-0 border-gray-400"
+								}`}
 						>
 							{job.buttonText}
 						</button>
@@ -139,13 +152,12 @@ const Experience = () => {
 						<div
 							key={i}
 							ref={(el) => (panels.current[i] = el)}
-							className={`job-panel ${
-								activeTabId === i ? "opacity-100" : "opacity-0 hidden"
-							}`}
+							className={`job-panel ${activeTabId === i ? "opacity-100" : "opacity-0 hidden"
+								}`}
 						>
-							<h4 className="2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg text-base font-bold text-primary-content font-poppins mb-2">
+							<h4 className="2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg text-slate-500 font-bold font-poppins mb-2">
 								{job.title}
-								<span className="text-primary ">
+								<span className="text-[#858DFF] ">
 									&nbsp;at&nbsp;
 									<a
 										href={job.url}
@@ -157,11 +169,11 @@ const Experience = () => {
 									</a>
 								</span>
 							</h4>
-							<h5 className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base text-sm font-roboto font-bold text-primary mb-4">
+							<h5 className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base text-sm font-roboto font-bold text-gray-100 mb-4">
 								{job.range}
 							</h5>
 							<div
-								className="2xl:text-xl xl:text-lg lg:text-base md:text-sm text-sm font-roboto text-primary text-justify"
+								className="2xl:text-md xl:text-md lg:text-base md:text-sm text-sm font-roboto text-gray-100 text-justify"
 								dangerouslySetInnerHTML={{ __html: job.html }}
 							/>
 						</div>

@@ -199,7 +199,7 @@ const Featured = () => {
 								className="col-span-7 md:col-span-6 "
 							>
 								<div className="p-1 md:p-6 border-r-2 md:border-r-4 border-secondary-content transition-transform transform hover:translate-y-[-5px]">
-									<h4 className="text-sm md:text-base font-space font-bold  text-purple-100   mb-2">
+									<h4 className="text-sm md:text-base font-space font-bold  text-[#ADA8C3]   mb-2">
 										Personal Project
 									</h4>
 									<h5 className="text-xl md:text-2xl text-gray-100 font-poppins font-semibold md:mb-4 mb-2">
@@ -208,7 +208,7 @@ const Featured = () => {
 												href={frontmatter.external}
 												target="_blank"
 												rel="nofollow noopener noreferrer"
-												className="hover:text-red-100 "
+												className="hover:text-[#FF776F] "
 											>
 												{frontmatter.title}
 											</a>
@@ -225,7 +225,7 @@ const Featured = () => {
 											{frontmatter.tech.map((tech, i) => (
 												<li
 													key={i}
-													className="font-space font-semibold text-xs md:text-smish text-purple-100  mr-2 mb-2 whitespace-nowrap"
+													className="font-space font-semibold text-xs md:text-smish text-[#fbecd7]  mr-2 mb-2 whitespace-nowrap"
 												>
 													{tech}
 												</li>

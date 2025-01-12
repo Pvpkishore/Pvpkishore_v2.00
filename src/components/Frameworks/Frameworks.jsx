@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import react from "../../assets/whiteicons/icons8-react-96.png";
 import next from "../../assets/whiteicons/icons8-nextjs.svg";
 import node from "../../assets/whiteicons/icons8-node-js.svg";
-// import fast from "../../assets/logos/icons8-fastapi.png";
 import tailwind from "../../assets/whiteicons/icons8-tailwind-css.svg";
 import express from "../../assets/icons-white/icons8-express-js.png";
 import bootstrap from "../../assets/whiteicons/icons8-bootstrap.svg";
