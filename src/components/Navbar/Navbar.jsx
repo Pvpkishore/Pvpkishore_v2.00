@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-scroll";
-import resume from "../../assets/resume/Pvpkishore_SoftwareDevloper_resume.pdf";
+import resume from "../../assets/resume/Pvpkishore_softwareDevloper_Resume.pdf";
 import ElasticText from "../Effects/Elastic";
 
 
