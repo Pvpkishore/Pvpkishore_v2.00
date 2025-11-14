@@ -6,6 +6,7 @@ import Featured from "../MajorProjects/MajorProjects";
 import Projects from "../Projects/Projects";
 import Contact from "../Contact/Contact";
 import Footer from "../Footer/Footer";
+import ChatAssistant from "../AIAssistant/ChatAssistant";  // <-- ADD THIS
 
 const BodyCont = () => {
 	return (
@@ -18,6 +19,7 @@ const BodyCont = () => {
 				<Projects />
 				<Contact />
 				<Footer />
+		        <ChatAssistant />  {/* <-- ADD THIS */}
 			</div>
 		</div>
 	);
