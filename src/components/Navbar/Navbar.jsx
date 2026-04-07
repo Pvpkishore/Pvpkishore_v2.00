@@ -38,10 +38,16 @@ const Navbar = () => {
 
 	return (
 		<div
-			className={`top-0  navbar justify-center bg-slate-950 fixed w-full transition-all duration-300 ease-in-out ${isSticky ? "shadow-md shadow-slate-900  bg-opacity-100  " : ""
+			className={`top-0 navbar justify-center fixed w-full transition-all duration-300 ease-in-out px-2 md:px-4 ${isSticky ? "shadow-xl bg-opacity-100" : ""
 				} z-50`}
+			style={{
+				background: "linear-gradient(100deg, rgba(10,18,40,0.97), rgba(18,30,66,0.95), rgba(74,20,28,0.9))",
+				backdropFilter: "blur(16px)",
+				borderBottom: "1px solid rgba(247, 195, 95, 0.48)",
+				boxShadow: "0 2px 22px rgba(247, 195, 95, 0.09), 0 6px 32px rgba(0,0,0,0.65)",
+			}}
 		>
-			<div className="navbar-start ">
+			<div className="navbar-start">
 				<div className="dropdown">
 					<div
 						tabIndex={0}
@@ -67,10 +73,11 @@ const Navbar = () => {
 					</div>
 					<ul
 						tabIndex={0}
-						className={`menu menu-sm dropdown-content bg-slate-900 rounded-box z-10 mt-3 w-52 p-2 shadow font-space font-semibold text-secondary ${isOpen ? "block" : "hidden"
+						className={`menu menu-sm dropdown-content rounded-box z-10 mt-3 w-52 p-2 shadow font-space font-semibold text-secondary ${isOpen ? "block" : "hidden"
 							}`}
+						style={{ background: "linear-gradient(160deg, rgba(10,18,38,0.98), rgba(18,26,53,0.96))", border: "1px solid rgba(247,195,95,0.2)" }}
 					>
-						{["Experience", "Skills", "Projects", "Contact"].map((section, index) => (
+						{["Experience", "Skills", "Projects", "Interview", "Contact"].map((section, index) => (
 							<li key={section}>
 								<Link
 									to={section.toLowerCase()}
@@ -78,7 +85,7 @@ const Navbar = () => {
 									smooth={true}
 									offset={-70}
 									duration={500 + index * 100}
-									className="text-sm bg-gradient-to-r from-blue-300 via-sky-400 to-blue-400  inline-block text-transparent bg-clip-text"
+									className="text-sm inline-block text-slate-100 hover:text-amber-200 transition-colors"
 									onClick={toggleMenu}
 								>
 									{section}
@@ -90,7 +97,7 @@ const Navbar = () => {
 								href={resume}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="btn btn-outline border border-blue-400 hover:border-blue-400 hover:text-slate-100 btn-md font-bold text-md text-blue-300 hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 "
+								className="premium-btn btn-md font-bold text-md"
 								onClick={toggleMenu}
 							>
 								Resume
@@ -98,12 +105,12 @@ const Navbar = () => {
 						</li>
 					</ul>
 				</div>
-				<ElasticText ref={logoRef} text="Pvp Kishore" className="text-2xl font-poppins font-bold ml-6" />
+				<ElasticText ref={logoRef} text="PvpKishore" className="text-2xl font-poppins font-bold ml-3 md:ml-5 avengers-title" />
 			</div>
 			<div className="navbar-center hidden lg:flex justify-center"></div>
 			<div className="navbar-end">
-				<ul className="menu menu-horizontal px-1 font-space font-semibold text-slate-200  hidden sm:flex">
-					{["Experience", "Skills", "Projects", "Contact"].map((section, index) => (
+				<ul className="menu menu-horizontal px-1 font-space font-semibold text-slate-200 hidden sm:flex rounded-full border border-amber-200/20 bg-slate-900/30">
+					{["Experience", "Skills", "Projects", "Interview", "Contact"].map((section, index) => (
 						<li ref={(el) => (menuItemsRef.current[index] = el)} key={section}>
 							<Link
 								to={section.toLowerCase()}
@@ -111,19 +118,19 @@ const Navbar = () => {
 								smooth={true}
 								offset={-70}
 								duration={500 + index * 100}
-								className="text-sm px-3 ml-1 py-2 rounded-md transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900"
+								className="text-sm px-3 py-2 rounded-md transition-all duration-200 hover:bg-gradient-to-r hover:from-red-400/70 hover:via-amber-300/60 hover:to-blue-400/70 hover:text-slate-100"
 								onClick={toggleMenu}
 							>
 								{section}
 							</Link>
 						</li>
 					))}
-					<li ref={(el) => (menuItemsRef.current[4] = el)}>
+					<li ref={(el) => (menuItemsRef.current[5] = el)} className="ml-2 mr-1">
 						<a
 							href={resume}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="btn btn-outline border border-blue-900  font-poppins text-slate-300 text-sm ml-3 hover:bg-primary transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900"
+							className="premium-btn font-poppins text-sm"
 						>
 							Resume
 						</a>

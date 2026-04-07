@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import githubIcon from "../../assets/icons-white/github-white-icon.png";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlitchText from "../Effects/Glitch";
+import AvengersGlyph from "../Effects/AvengersGlyph";
 
 const Projects = () => {
 	const [showMore, setShowMore] = useState(false);
@@ -113,46 +112,54 @@ const Projects = () => {
 	}, []);
 
 	return (
-		<section className="py-3 bg-slate-950 p-3">
+		<section className="py-4 p-4 hud-projects premium-surface rounded-2xl">
 			<h2
 				ref={titleRef}
-				className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-8"
+				className="text-2xl md:text-4xl font-bold avengers-title mb-8"
 			>
               <GlitchText ref={titleRef} text="Other Projects" />
 			</h2>
-			<div ref={projectsRef} className="container md:mx-auto px-4">
-				<div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+			<div ref={projectsRef} className="container md:mx-auto px-1 md:px-2">
+				<div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 					{projectsToShow.map(({ frontmatter, github,external }, i) => (
 						<div
 							key={i}
 							ref={(el) => (revealProjects.current[i] = el)}
-							className="text-primary p-1 md:p-6 border-b-4 border-secondary-content "
+							className="p-4 md:p-5 premium-surface border border-amber-300/20 rounded-xl shadow-[0_12px_28px_rgba(2,8,22,0.4)] transition-transform duration-300 hover:-translate-y-1"
 						>
-							<div className="flex justify-start items-center mb-2 ">
+							<div className="flex justify-between items-center mb-3">
+								<div className="flex items-center gap-2">
+									<AvengersGlyph size={20} />
+									<span className="text-xs tracking-wide uppercase text-amber-200/90">Mission Log</span>
+								</div>
+								<div className="flex items-center gap-2">
 								{github && (
 									<a
-										className="mr-2"
+										className="assistant-control text-[11px]"
 										href={github}
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<img
-											src={githubIcon}
-											alt="GitHub Icon"
-											className="w-8 h-8"
-										/>
+										<div className="flex items-center gap-1">
+											<AvengersGlyph size={13} />
+											<span>Code</span>
+										</div>
 									</a>
 								)}
 								{external && (
 									<a
-										className="mx-2"
+										className="assistant-control text-[11px]"
 										href={external}
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<button className="btn btn-outline btn-sm border border-blue-900  font-poppins text-slate-300 hover:bg-primary transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900">Visit</button>
+										<div className="flex items-center gap-1">
+											<AvengersGlyph size={13} />
+											<span>Visit</span>
+										</div>
 									</a>
 								)}
+								</div>
 							</div>
 							<div className="flex">
 								{external ? (
@@ -160,27 +167,28 @@ const Projects = () => {
 										href={external}
 										target="_blank"
 										rel="nofollow noopener noreferrer"
-										className="text-violet-200 font-poppins font-semibold text-lg hover:text-red-100"
+										className="text-slate-100 font-semibold text-xl hover:text-amber-200 transition-colors"
 									>
 										{frontmatter.title}
 									</a>
 								) : (
-									<span className="text-primary font-poppins font-semibold text-lg">
+									<span className="text-slate-100 font-semibold text-xl">
 										{frontmatter.title}
 									</span>
 								)}
 							</div>
 							<div
-								className="text-sm md:text-lg leading-relaxed mb-4 font-roboto text-gray-300 text-justify"
+								className="text-sm md:text-base leading-relaxed mb-4 text-slate-200/95 text-justify"
 								dangerouslySetInnerHTML={{ __html: frontmatter.html }}
 							/>
 							{frontmatter.tech && (
-								<ul className="flex flex-wrap mb-4">
+								<ul className="flex flex-wrap gap-2 mb-2">
 									{frontmatter.tech.map((item, i) => (
 										<li
 											key={i}
-											className="text-xs md:text-sm font-space font-bold text-purple-100 mr-2 mb-1"
+											className="text-xs md:text-sm font-semibold text-amber-100 border border-amber-300/20 rounded-full px-2.5 py-1 bg-slate-900/30 flex items-center gap-1"
 										>
+											<AvengersGlyph size={12} />
 											{item}
 										</li>
 									))}
@@ -192,17 +200,13 @@ const Projects = () => {
 
 				<button
 					onClick={() => setShowMore(!showMore)}
-					className="btn btn-outline btn-md border border-blue-900  text-slate-300 hover:bg-primary transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900 font-poppins mt-8 mx-auto block"
+					className="premium-btn btn-md font-poppins mt-8 mx-auto block"
 				>
 					Show {showMore ? "Less" : "More"}
 				</button>
 			</div>
 		</section>
 	);
-};
-
-Projects.propTypes = {
-	// No props required
 };
 
 export default Projects;

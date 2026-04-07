@@ -1,16 +1,6 @@
-// src/components/AIAssistant/ChatAssistant.jsx
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
-
-/*
- Premium Responsive Chat Assistant (Style C)
- - Desktop draggable
- - Mobile centered popup
- - Fixed input bar
- - Typing dots animation
- - Bubble tails
- - DeepSeek API via OpenRouter
-*/
+import { AnimatePresence, motion } from "framer-motion";
 
 const ABOUT_TEXT = `
 PVP Kishore is a Programmer, Web Developer, and C++ Developer currently in his 3rd year of Civil Engineering at NIT Calicut. He is highly interested in technology, web development, video editing, and building practical projects.
@@ -20,14 +10,14 @@ CONTACT:
 - Profiles: LinkedIn, GitHub, LeetCode
 
 INTERNSHIPS / EXPERIENCE:
-1. Full Stack Developer Intern — Prodigy Infotech (Nov 2024 – Dec 2024)
+1. Full Stack Developer Intern - Prodigy Infotech (Nov 2024 - Dec 2024)
    - Built a complete Bookstore MERN application with secure user authentication (bcrypt).
    - Created modern, responsive UI using React.js and Tailwind CSS.
    - Implemented CRUD operations using MongoDB.
    - Built a Stopwatch Web App with lap tracking and smooth UI.
    - Developed an Interactive Tic-Tac-Toe game with animations and an AI opponent.
 
-2. Web Developer — Afametechnologies
+2. Web Developer - Afametechnologies
 
 SKILLS:
 - Programming Languages: C, C++, Python, JavaScript
@@ -38,553 +28,596 @@ SKILLS:
 - Additional: Video Editing
 
 PROJECTS:
-
 1. PassOP (Password Manager)
-   - Secure storage for website URLs, usernames, and passwords.
-   - Features create/edit/delete entries.
-   - Tech: React.js, MongoDB, Node.js, Express.js, Tailwind CSS
-
 2. Book Store (MERN)
-   - Full MERN app with authentication and user profile management.
-   - Smooth navigation, responsive design, scalable UI.
-   - Tech: React, Node, Express, MongoDB, Tailwind
-
 3. GitHub Glazer
-   - Motivational tool generating words of encouragement for developers.
-   - Tech: TypeScript, React on Vite, Tailwind, OpenAI
-
 4. Bittree (Linktree Clone)
-   - Customizable profile link-sharing platform.
-   - Tech: Next.js, Express.js, Tailwind CSS
-
 5. DevChronicles (Portfolio)
-   - Portfolio showing JavaScript, React, backend, and full-stack work.
-   - Features themes, categories, and smooth UI animations.
-   - Tech: React.js, Tailwind, Material UI
-
 6. Real-Time Chat App
-   - A real-time messaging platform using WebSocket.io.
-   - Tech: Node.js, Express.js, Socket.io
-
 7. GitHub Profile Finder
-   - Fetches GitHub user data using GitHub API.
-   - Displays profile image, repositories, followers, etc.
-   - Tech: HTML, CSS/Tailwind, JS
-
 8. WeatherX
-   - Weather app fetching real-time weather data using API.
-   - Tech: HTML, CSS, JavaScript, RapidAPI
-
-OTHER NOTES:
-- Kishore loves building clean, responsive, and fast web apps.
-- He enjoys exploring new technologies and working on creative coding projects.
-- He is always open to discussing new opportunities, ideas, or collaborations.
 `;
 
-/* ---------------- BOT AVATAR ---------------- */
-const BotAvatar = ({ size = 36 }) => (
-    <div
-        style={{
-            width: size,
-            height: size,
-            borderRadius: size / 2,
-            background: "#fff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "0 6px 18px rgba(16,24,40,0.06)",
-        }}
-    >
-        <svg width={size * 0.6} height={size * 0.6} viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#2563eb" />
-            <circle cx="9" cy="10" r="1.25" fill="white" />
-            <circle cx="15" cy="10" r="1.25" fill="white" />
-            <rect x="8" y="13.5" width="8" height="1.6" rx="0.8" fill="white" />
-        </svg>
-    </div>
+const PROJECT_QUERY_REGEX = /(project|passop|book store|github glazer|bittree|devchronicles|weatherx|tech stack|built)/i;
+
+const SUGGESTED_QUESTIONS = [
+  "Who is Kishore?",
+  "What are his core skills?",
+  "Explain PassOP project",
+  "Tell me about Book Store project",
+  "Where did he intern?",
+  "Share contact details"
+];
+
+const BotAvatar = ({ size = 34 }) => (
+  <div
+    style={{
+      width: size,
+      height: size,
+      borderRadius: size / 2,
+      background: "linear-gradient(145deg, #f59e0b, #ef4444)",
+      display: "grid",
+      placeItems: "center",
+      boxShadow: "0 8px 22px rgba(239,68,68,0.35)",
+      border: "1px solid rgba(251,191,36,0.6)",
+      fontSize: 12,
+      fontWeight: 700,
+      color: "#fff",
+      letterSpacing: 0.5,
+    }}
+  >
+    AI
+  </div>
 );
 
-/* ---------------- TYPING DOTS ---------------- */
-const TypingDots = ({ color = "#64748b" }) => (
-    <div style={{ display: "inline-flex", gap: 6 }}>
-        <span style={dotStyle(color, 0)} />
-        <span style={dotStyle(color, 150)} />
-        <span style={dotStyle(color, 300)} />
-        <style>{`
-      @keyframes dotBounce {
-        0% { transform: translateY(0); opacity: .6; }
-        30% { transform: translateY(-6px); opacity: 1; }
-        60% { transform: translateY(0); opacity: .6; }
+const TypingDots = () => (
+  <div style={{ display: "inline-flex", gap: 5 }}>
+    <span style={dotStyle(0)} />
+    <span style={dotStyle(120)} />
+    <span style={dotStyle(240)} />
+    <style>{`
+      @keyframes avxDot {
+        0% { transform: translateY(0); opacity: .5; }
+        40% { transform: translateY(-4px); opacity: 1; }
+        100% { transform: translateY(0); opacity: .5; }
       }
     `}</style>
-    </div>
+  </div>
 );
 
-function dotStyle(color, delay) {
-    return {
-        width: 8,
-        height: 8,
-        borderRadius: 8,
-        background: color,
-        animation: `dotBounce .9s ${delay}ms infinite`,
-    };
+function dotStyle(delay) {
+  return {
+    width: 7,
+    height: 7,
+    borderRadius: 7,
+    background: "#fbbf24",
+    animation: `avxDot .9s ${delay}ms infinite`,
+  };
 }
 
-/* ---------------- BUBBLE TAIL ---------------- */
-const BubbleTail = ({ side, color }) => (
-    <svg
-        width="20"
-        height="18"
-        viewBox="0 0 24 24"
-        style={{
-            position: "absolute",
-            bottom: -2,
-            [side === "left" ? "left" : "right"]: -8,
-            transform: side === "right" ? "scaleX(-1)" : "",
-        }}
-    >
-        <path d="M5 20c4-3 7-5 10-5s6 2 8 5H5z" fill={color} />
-    </svg>
-);
+function limitWords(text, maxWords) {
+  if (!text) return "";
+  const words = text.trim().split(/\s+/);
+  if (words.length <= maxWords) return text.trim();
+  return `${words.slice(0, maxWords).join(" ")}...`;
+}
 
-/* -------------------------------------------------------- */
-/* ---------------------- MAIN ---------------------------- */
-/* -------------------------------------------------------- */
 export default function ChatAssistant() {
-    const [open, setOpen] = useState(false);
-    const [minimized, setMinimized] = useState(false);
-    const [messages, setMessages] = useState([
+  const [open, setOpen] = useState(false);
+  const [minimized, setMinimized] = useState(false);
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      sender: "bot",
+      text: "Hey, I am JARVIS for Kishore. Ask me anything.",
+      createdAt: Date.now(),
+    },
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const getScreenSize = () => {
+    const w = window.innerWidth;
+    if (w < 640) return "mobile";
+    if (w < 1024) return "tablet";
+    return "desktop";
+  };
+
+  const [screenSize, setScreenSize] = useState(getScreenSize);
+
+  const [pos, setPos] = useState(() => ({
+    x: Math.max(8, window.innerWidth - 556),
+    y: 68,
+  }));
+
+  const wrapRef = useRef(null);
+  const scrollRef = useRef(null);
+  const fabRef = useRef(null);
+  const dragRef = useRef({ active: false, offsetX: 0, offsetY: 0 });
+
+  const wrapperStyle = useMemo(() => {
+    if (screenSize === "mobile") {
+      return {
+        width: "100vw",
+        height: "90vh",
+        left: 0,
+        bottom: 0,
+        top: "auto",
+        borderRadius: "1.25rem 1.25rem 0 0",
+      };
+    }
+    if (screenSize === "tablet") {
+      return {
+        width: "min(94vw, 560px)",
+        height: "88vh",
+        left: "50%",
+        top: "5vh",
+        transform: "translateX(-50%)",
+      };
+    }
+    return {
+      width: 540,
+      height: "calc(100vh - 80px)",
+      maxHeight: 820,
+      left: pos.x,
+      top: pos.y,
+    };
+  }, [screenSize, pos]);
+
+  useEffect(() => {
+    const onResize = () => setScreenSize(getScreenSize());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    if (open && wrapRef.current) {
+      gsap.fromTo(wrapRef.current, { opacity: 0, y: 14, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.26 });
+    }
+  }, [open]);
+
+  useEffect(() => {
+    const tween = gsap.to(fabRef.current, {
+      y: -6,
+      duration: 1.1,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut",
+    });
+    return () => tween.kill();
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setOpen(true);
+        setMinimized(false);
+      }
+      if (e.key === "Escape") {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const startDrag = (e) => {
+    if (screenSize !== "desktop") return;
+    const x = e.clientX ?? e.touches?.[0]?.clientX;
+    const y = e.clientY ?? e.touches?.[0]?.clientY;
+    dragRef.current = { active: true, offsetX: x - pos.x, offsetY: y - pos.y };
+  };
+
+  const onDrag = (e) => {
+    if (screenSize !== "desktop" || !dragRef.current.active) return;
+    const x = e.clientX ?? e.touches?.[0]?.clientX;
+    const y = e.clientY ?? e.touches?.[0]?.clientY;
+
+    setPos({
+      x: Math.max(8, Math.min(x - dragRef.current.offsetX, window.innerWidth - 548)),
+      y: Math.max(8, Math.min(y - dragRef.current.offsetY, window.innerHeight - 200)),
+    });
+  };
+
+  const endDrag = () => {
+    dragRef.current.active = false;
+  };
+
+    // Global drag — works even when cursor leaves the panel
+    useEffect(() => {
+      const handleMove = (e) => {
+        if (!dragRef.current.active) return;
+        const x = e.clientX ?? e.touches?.[0]?.clientX;
+        const y = e.clientY ?? e.touches?.[0]?.clientY;
+        if (x == null || y == null) return;
+        setPos({
+          x: Math.max(8, Math.min(x - dragRef.current.offsetX, window.innerWidth - 548)),
+          y: Math.max(8, Math.min(y - dragRef.current.offsetY, window.innerHeight - 200)),
+        });
+      };
+      const handleUp = () => { dragRef.current.active = false; };
+      window.addEventListener("mousemove", handleMove);
+      window.addEventListener("mouseup", handleUp);
+      window.addEventListener("touchmove", handleMove, { passive: true });
+      window.addEventListener("touchend", handleUp);
+      return () => {
+        window.removeEventListener("mousemove", handleMove);
+        window.removeEventListener("mouseup", handleUp);
+        window.removeEventListener("touchmove", handleMove);
+        window.removeEventListener("touchend", handleUp);
+      };
+    }, []);
+
+  const appendBotTyping = () => {
+    setMessages((prev) => [...prev, { id: "typing", sender: "bot", typing: true, createdAt: Date.now() }]);
+  };
+
+  const removeBotTyping = () => {
+    setMessages((prev) => prev.filter((item) => item.id !== "typing"));
+  };
+
+  const typeReply = async (fullText) => {
+    const replyId = `bot-${Date.now()}`;
+    setMessages((prev) => [...prev, { id: replyId, sender: "bot", text: "", createdAt: Date.now() }]);
+
+    return new Promise((resolve) => {
+      let idx = 0;
+      const timer = setInterval(() => {
+        idx += 1;
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === replyId ? { ...m, text: `${fullText.slice(0, idx)}${idx < fullText.length ? "|" : ""}` } : m
+          )
+        );
+
+        if (idx >= fullText.length) {
+          clearInterval(timer);
+          setMessages((prev) => prev.map((m) => (m.id === replyId ? { ...m, text: fullText } : m)));
+          resolve();
+        }
+      }, 10);
+    });
+  };
+
+  const sendMessage = async (forcedText) => {
+    const q = (forcedText ?? input).trim();
+    if (!q) return;
+
+    const greeting = /^(hi|hii|hello|hey|yo|hola)$/i.test(q);
+    if (greeting) {
+      setMessages((prev) => [
+        ...prev,
+        { id: `u-${Date.now()}`, sender: "user", text: q, createdAt: Date.now() },
         {
-            id: 1,
-            sender: "bot",
-            text: "Hello 👋 I’m Kishor’s AI Assistant. Ask me anything.",
-            done: true,
+          id: `b-${Date.now() + 1}`,
+          sender: "bot",
+          text: "Hi. Ask about skills, projects, internships, or contact and I will keep it short.",
+          createdAt: Date.now(),
         },
+      ]);
+      setInput("");
+      return;
+    }
+
+    const userMessage = { id: `u-${Date.now()}`, sender: "user", text: q, createdAt: Date.now() };
+    setInput("");
+    setLoading(true);
+    setMessages((prev) => [...prev, userMessage]);
+    appendBotTyping();
+
+    try {
+      const briefLimit = PROJECT_QUERY_REGEX.test(q) ? 100 : 50;
+      const history = [...messages, userMessage]
+        .filter((m) => m.sender && m.text)
+        .slice(-8)
+        .map((m) => ({ role: m.sender === "user" ? "user" : "assistant", content: m.text.replace(/\|$/, "") }));
+
+        const requestMessages = [
+        {
+          role: "system",
+          content:
+            "You are Kishore's personal AI assistant in JARVIS style: professional, warm, and direct. Use ONLY facts from ABOUT. If user asks non-profile info, say it is not in profile. Keep most replies under 50 words. For project-related questions, keep under 100 words. No hallucinations. Prefer short clear sentences.",
+        },
+        { role: "system", content: `ABOUT:\n${ABOUT_TEXT}` },
+        ...history,
+      ];
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: requestMessages }),
+      });
+
+      if (!res.ok) {
+        const { error } = await res.json().catch(() => ({}));
+        throw new Error(error || `Request failed (${res.status})`);
+      }
+
+      const data = await res.json();
+      const raw = data?.choices?.[0]?.message?.content || "I could not generate an answer.";
+      const cleaned = limitWords(raw.replace(/\n{3,}/g, "\n\n"), briefLimit);
+
+      removeBotTyping();
+      await typeReply(cleaned);
+    } catch (err) {
+      removeBotTyping();
+      setMessages((prev) => [
+        ...prev,
+        { id: `e-${Date.now()}`, sender: "bot", text: `Error: ${err.message}`, createdAt: Date.now() },
+      ]);
+    }
+
+    setLoading(false);
+  };
+
+  const clearChat = () => {
+    setMessages([
+      {
+        id: `c-${Date.now()}`,
+        sender: "bot",
+        text: "Memory reset complete. Ready for your next query.",
+        createdAt: Date.now(),
+      },
     ]);
+  };
 
-    const [input, setInput] = useState("");
-    const [loading, setLoading] = useState(false);
+  const regenerateReply = async () => {
+    if (loading) return;
+    const lastUser = [...messages].reverse().find((m) => m.sender === "user");
+    if (lastUser?.text) {
+      await sendMessage(lastUser.text);
+    }
+  };
 
-    const [pos, setPos] = useState({
-        x: window.innerWidth - 360,
-        y: window.innerHeight - 500,
+  const copyLastAnswer = async () => {
+    const lastBot = [...messages].reverse().find((m) => m.sender === "bot" && m.text && !m.typing);
+    if (!lastBot) return;
+    await navigator.clipboard.writeText(lastBot.text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
+
+  const renderMessage = (m) => {
+    const isUser = m.sender === "user";
+    const clock = new Date(m.createdAt || Date.now()).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
     });
 
-    const refWrapper = useRef(null);
-    const refScroll = useRef(null);
-    const drag = useRef({ active: false, offsetX: 0, offsetY: 0 });
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-    const [dark, setDark] = useState(false);
-
-    /* ---------------- DARK MODE DETECT ---------------- */
-    useEffect(() => {
-        const q = window.matchMedia("(prefers-color-scheme: dark)");
-        setDark(q.matches);
-        q.addEventListener("change", () => setDark(q.matches));
-    }, []);
-
-    /* ---------------- RESIZE DETECT ---------------- */
-    useEffect(() => {
-        const resize = () => setIsMobile(window.innerWidth < 768);
-        window.addEventListener("resize", resize);
-        return () => window.removeEventListener("resize", resize);
-    }, []);
-
-    /* ---------------- GSAP OPEN ANIMATION ---------------- */
-    useEffect(() => {
-        if (open && refWrapper.current) {
-            gsap.fromTo(
-                refWrapper.current,
-                { opacity: 0, y: 20, scale: 0.98 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.3 }
-            );
-        }
-    }, [open]);
-
-    /* ---------------- AUTOSCROLL ---------------- */
-    useEffect(() => {
-        if (refScroll.current) {
-            refScroll.current.scrollTop = refScroll.current.scrollHeight;
-        }
-    }, [messages]);
-
-    /* ---------------- TYPE EFFECT ---------------- */
-    const typeText = async (text) =>
-        new Promise((resolve) => {
-            setMessages((m) => [...m, { id: "type", sender: "bot", text: "", done: false }]);
-            let i = 0;
-            const interval = setInterval(() => {
-                i++;
-                setMessages((m) =>
-                    m.map((m) =>
-                        m.id === "type" ? { ...m, text: text.slice(0, i) + "▌" } : m
-                    )
-                );
-                if (i >= text.length) {
-                    clearInterval(interval);
-                    setMessages((m) =>
-                        m.map((msg) =>
-                            msg.id === "type"
-                                ? { ...msg, text: text, done: true, id: Date.now() }
-                                : msg
-                        )
-                    );
-                    resolve();
-                }
-            }, 12);
-        });
-
-    /* ------------------------------------------------------- */
-    /* 🔥 NEW — SEND MESSAGE USING DEEPSEEK (OPENROUTER)       */
-    /* ------------------------------------------------------- */
-    const sendMessage = async (forcedText) => {
-        const q = (forcedText ?? input).trim();
-        if (!q) return;
-
-        // FIX: Local greeting handler to prevent DeepSeek blank responses
-        const greetings = ["hi", "hii", "hello", "hey", "yo", "sup", "hlo", "hloo"];
-        if (greetings.includes(q.toLowerCase())) {
-            setMessages((m) => [
-                ...m,
-                { sender: "user", text: q, id: Date.now() },
-                { sender: "bot", text: "Hi! 👋 How can I help you today?", id: Date.now() + 1 }
-            ]);
-            setInput("");
-            return;
-        }
-
-        setInput("");
-        setMessages((m) => [...m, { sender: "user", text: q, id: Date.now() }]);
-        setMessages((m) => [...m, { sender: "bot", typingDots: true, id: "dots" }]);
-        setLoading(true);
-
-        try {
-            const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
-
-            const payload = {
-                model: "deepseek/deepseek-r1:free",
-                messages: [
-                    {
-                        role: "system",
-                        content: `
-You are Kishor's personal AI assistant.
-
-BEHAVIOR RULES:
-1. If the user sends a greeting (examples: "hi", "hello", "hey", "hii", "good morning", "what's up"), reply warmly and naturally. Do NOT restrict to ABOUT text for greetings.
-2. If the user asks something ABOUT Kishor (projects, education, experience, skills, personal details, career, contact info), answer ONLY using the ABOUT section provided.
-3. If the question is NOT found in the ABOUT section, politely say it is not in your profile and offer related info if helpful.
-4. Never invent new facts about Kishor that are not in the ABOUT section.
-5. Always respond in a friendly, conversational tone.
-
-Follow these rules exactly.
-`.trim()
-                    }
-                    ,
-                    { role: "user", content: `ABOUT:\n${ABOUT_TEXT}` },
-                    { role: "user", content: q },
-                ],
-                temperature: 0.2,
-                max_tokens: 600,
-            };
-
-            const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${API_KEY}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = await res.json();
-
-            const answer =
-                data?.choices?.[0]?.message?.content ??
-                data?.choices?.[0]?.text ??
-                "I couldn't generate an answer.";
-
-            // remove typing dots
-            setMessages((m) => m.filter((x) => x.id !== "dots"));
-
-            // type AI reply
-            await typeText(answer);
-        } catch (err) {
-            setMessages((m) => [
-                ...m.filter((x) => x.id !== "dots"),
-                { sender: "bot", text: "Error: " + err.message, id: Date.now() },
-            ]);
-        }
-
-        setLoading(false);
-    };
-
-    /* ---------------- CLEAR CHAT ---------------- */
-    const clearChat = () =>
-        setMessages([
-            {
-                sender: "bot",
-                text: "Chat cleared! Ask me anything again.",
-                id: Date.now(),
-            },
-        ]);
-
-    /* ---------------- DRAG HANDLERS ---------------- */
-    const startDrag = (e) => {
-        if (isMobile) return;
-
-        const x = e.clientX ?? e.touches?.[0]?.clientX;
-        const y = e.clientY ?? e.touches?.[0]?.clientY;
-
-        drag.current = {
-            active: true,
-            offsetX: x - pos.x,
-            offsetY: y - pos.y,
-        };
-    };
-
-    const duringDrag = (e) => {
-        if (isMobile || !drag.current.active) return;
-
-        const x = e.clientX ?? e.touches?.[0]?.clientX;
-        const y = e.clientY ?? e.touches?.[0]?.clientY;
-
-        setPos({
-            x: Math.max(8, Math.min(x - drag.current.offsetX, window.innerWidth - 380)),
-            y: Math.max(8, Math.min(y - drag.current.offsetY, window.innerHeight - 500)),
-        });
-    };
-
-    const endDrag = () => {
-        drag.current.active = false;
-    };
-
-    /* ---------------- RENDER SINGLE MESSAGE ---------------- */
-    const renderMessage = (m) => {
-        const isUser = m.sender === "user";
-
-        return (
-            <div
-                key={m.id}
-                className="mb-4 flex"
-                style={{ justifyContent: isUser ? "flex-end" : "flex-start" }}
-            >
-                {!isUser && <BotAvatar />}
-
-                <div
-                    className="relative max-w-[75%] px-4 py-3 rounded-2xl shadow"
-                    style={{
-                        marginLeft: isUser ? 0 : 12,
-                        marginRight: isUser ? 12 : 0,
-                        background: isUser
-                            ? "linear-gradient(90deg,#2563eb,#7c3aed)"
-                            : dark
-                                ? "#0b1220"
-                                : "#fff",
-                        color: isUser ? "#fff" : dark ? "#e4e7eb" : "#0f172a",
-                    }}
-                >
-                    <BubbleTail
-                        side={isUser ? "right" : "left"}
-                        color={
-                            isUser
-                                ? "#2563eb"
-                                : dark
-                                    ? "#0b1220"
-                                    : "#fff"
-                        }
-                    />
-
-                    {m.typingDots ? <TypingDots /> : m.text}
-                </div>
-
-                {isUser && (
-                    <div className="w-9 h-9 rounded-full bg-white shadow flex items-center justify-center">
-                        <span className="font-bold text-black">PK</span>
-                    </div>
-                )}
-            </div>
-        );
-    };
-
-    /* ---------------- WRAPPER STYLE ---------------- */
-    const wrapperStyle = isMobile
-        ? {
-            width: "92vw",
-            height: "78vh",
-            left: "4vw",
-            top: "10vh",
-        }
-        : {
-            width: 360,
-            height: "75vh",
-            left: pos.x,
-            top: pos.y,
-        };
-
     return (
-        <>
-            {/* FLOAT BUTTON */}
-            {!open || minimized ? (
-                <button
-                    onClick={() => {
-                        setOpen(true);
-                        setMinimized(false);
-                    }}
-                    className="fixed bottom-6 right-6 z-[9999] w-16 h-16 bg-blue-600 text-white text-3xl rounded-full shadow-xl hover:scale-110 transition"
-                >
-                    💬
-                </button>
-            ) : null}
+      <motion.div
+        key={m.id}
+        className="mb-4 flex"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2 }}
+        style={{ justifyContent: isUser ? "flex-end" : "flex-start" }}
+      >
+        {!isUser && <BotAvatar />}
 
-            {/* CHAT WINDOW */}
-            {open && (
-                <div
-                    ref={refWrapper}
-                    onMouseMove={duringDrag}
-                    onMouseUp={endDrag}
-                    onTouchMove={duringDrag}
-                    onTouchEnd={endDrag}
-                    className="fixed z-[9998] rounded-2xl shadow-2xl overflow-hidden border"
-                    style={{
-                        ...wrapperStyle,
-                        position: "fixed",
-                        background: dark ? "#0b1220" : "#fff",
-                        borderColor: dark ? "#1f2937" : "#e2e8f0",
-                    }}
-                >
-                    {/* HEADER */}
-                    <div
-                        onMouseDown={startDrag}
-                        onTouchStart={startDrag}
-                        className={`px-4 py-3 flex justify-between items-center ${dark ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
-                            }`}
-                        style={{ cursor: isMobile ? "default" : "grab" }}
-                    >
-                        <div className="flex items-center gap-3">
-                            <BotAvatar />
-                            <div>
-                                <div className="font-bold text-sm">Kishor’s Assistant</div>
-                                <div className="text-xs opacity-60">Answers from profile</div>
-                            </div>
-                        </div>
+        <div
+          className="relative max-w-[78%] px-4 py-3 rounded-2xl"
+          style={{
+            marginLeft: isUser ? 0 : 10,
+            marginRight: isUser ? 10 : 0,
+            background: isUser
+              ? "linear-gradient(120deg, rgba(37,99,235,.95), rgba(220,38,38,.95))"
+              : "linear-gradient(160deg, rgba(17,24,39,.92), rgba(30,41,59,.92))",
+            color: "#f8fafc",
+            border: "1px solid rgba(148,163,184,.25)",
+            boxShadow: "0 14px 30px rgba(2,6,23,.32)",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {m.typing ? <TypingDots /> : m.text}
+          {!m.typing ? <div style={{ fontSize: 10, opacity: 0.65, marginTop: 7 }}>{clock}</div> : null}
+        </div>
 
-                        <div className="flex gap-3">
-                            <button onClick={clearChat}>🧹</button>
-                            <button onClick={() => setMinimized(true)}>—</button>
-                            <button onClick={() => setOpen(false)}>✖</button>
-                        </div>
-                    </div>
-
-                    {/* BODY */}
-                    {!minimized ? (
-                        <>
-                            {/* messages */}
-                            <div
-                                ref={refScroll}
-                                className="p-6 overflow-y-auto"
-                                style={{
-                                    height: "calc(100% - 220px)",
-                                    background: dark ? "#071026" : "#f1f5f9",
-                                }}
-                            >
-                                {messages.map((m) => renderMessage(m))}
-
-                            </div>
-                            {/* Suggested Questions */}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: 8,
-                                    padding: "10px 14px",
-                                    borderBottom: `1px solid ${dark ? "#0f1720" : "#eef2f7"}`,
-                                    background: dark ? "#071026" : "#ffffff",
-                                }}
-                            >
-                                {[
-                                    "Tell about Kishor",
-                                    "Who is Kishor?",
-                                    "What skills does Kishor have?",
-                                    "What projects has he built?",
-                                    "Where did he work?",
-                                    "Tell his contact information",
-                                    "What is PassOP?",
-                                    "Explain the Bookstore project",
-                                ].map((q) => (
-                                    <button
-                                        key={q}
-                                        onClick={() => sendMessage(q)}
-                                        style={{
-                                            padding: "6px 12px",
-                                            borderRadius: 20,
-                                            fontSize: 12,
-                                            border: "1px solid #3b82f6",
-                                            background: "rgba(59,130,246,0.15)",
-                                            color: "#3b82f6",
-                                            cursor: "pointer",
-                                            whiteSpace: "nowrap",
-                                            transition: "0.2s",
-                                        }}
-                                    >
-                                        {q}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* input */}
-                            <div
-                                className="p-3 border-t"
-                                style={{
-                                    background: dark ? "#0b1220" : "#fff",
-                                    borderColor: dark ? "#1f2937" : "#e2e8f0",
-                                }}
-                            >
-                                <div className="flex gap-2">
-                                    <input
-                                        value={input}
-                                        onChange={(e) => setInput(e.target.value)}
-                                        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                                        placeholder="Ask something..."
-                                        className={`flex-1 px-3 py-2 rounded-lg outline-none ${dark
-                                            ? "bg-gray-800 text-white border border-gray-700"
-                                            : "bg-gray-100 text-gray-900 border border-gray-300"
-                                            }`}
-                                    />
-                                    <button
-                                        onClick={sendMessage}
-                                        disabled={loading}
-                                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                                    >
-                                        {loading ? "..." : "Send"}
-                                    </button>
-                                </div>
-
-                                <div className="text-xs mt-2 opacity-60">
-                                    Powered by DeepSeek (OpenRouter)
-                                </div>
-                            </div>
-                        </>
-                    ) : (
-                        /* minimized bar */
-                        <div className="p-3 flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <BotAvatar />
-                                <div>
-                                    <div className="font-bold">Kishor’s Assistant</div>
-                                    <div className="text-xs opacity-60">Minimized</div>
-                                </div>
-                            </div>
-                            <button
-                                className="px-3 py-1 bg-blue-600 text-white rounded"
-                                onClick={() => setMinimized(false)}
-                            >
-                                Restore
-                            </button>
-                        </div>
-                    )}
-                </div>
-            )}
-        </>
+        {isUser ? (
+          <div className="w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center">
+            <span className="font-bold text-black text-xs">PK</span>
+          </div>
+        ) : null}
+      </motion.div>
     );
+  };
+
+  return (
+    <>
+      {!open || minimized ? (
+        <motion.button
+          ref={fabRef}
+          onClick={() => {
+            setOpen(true);
+            setMinimized(false);
+          }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
+          className={`fixed ${screenSize === "mobile" ? "bottom-4 right-4 w-12 h-12 text-2xl" : "bottom-6 right-6 w-16 h-16 text-3xl"} z-[9999] text-white rounded-full`}
+          style={{
+            background: "conic-gradient(from 120deg, #dc2626, #2563eb, #f59e0b, #dc2626)",
+            border: "1px solid rgba(251,191,36,.65)",
+            boxShadow: "0 18px 35px rgba(220,38,38,.35)",
+            fontFamily: "Orbitron, sans-serif",
+          }}
+          aria-label="Open assistant"
+        >
+          A
+        </motion.button>
+      ) : null}
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            ref={wrapRef}
+            initial={{ opacity: 0, y: screenSize === "mobile" ? 60 : 26, scale: 0.98 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              height: minimized
+                ? "auto"
+                : screenSize === "mobile"
+                ? "90vh"
+                : screenSize === "tablet"
+                ? "88vh"
+                : "calc(100vh - 80px)",
+            }}
+            exit={{
+              opacity: 0,
+              y: screenSize === "mobile" ? 60 : 20,
+              scale: 0.98,
+            }}
+            transition={{ duration: 0.28, ease: "easeInOut" }}
+            className="fixed z-[9998] shadow-2xl overflow-hidden border flex flex-col"
+            style={{
+              ...wrapperStyle,
+              height: undefined,
+              maxHeight: minimized ? undefined : screenSize === "desktop" ? 820 : undefined,
+              position: "fixed",
+              background: "linear-gradient(180deg, rgba(2,6,23,0.97), rgba(15,23,42,0.97))",
+              borderColor: "rgba(248,113,113,.32)",
+              borderRadius: screenSize === "mobile" ? "1.25rem 1.25rem 0 0" : "1rem",
+            }}
+          >
+            <div
+              onMouseDown={startDrag}
+              onTouchStart={startDrag}
+              className="px-3 py-2 text-white flex-shrink-0"
+              style={{
+                cursor: screenSize === "desktop" ? "grab" : "default",
+                background: "linear-gradient(90deg, rgba(30,64,175,.45), rgba(185,28,28,.45))",
+                borderBottom: "1px solid rgba(251,191,36,.28)",
+              }}
+            >
+              {/* Mobile: drag handle bar */}
+              {screenSize === "mobile" && (
+                <div className="flex justify-center mb-2">
+                  <div style={{ width: 40, height: 4, borderRadius: 4, background: "rgba(255,255,255,0.25)" }} />
+                </div>
+              )}
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div
+                    style={{
+                      flexShrink: 0,
+                      width: screenSize === "mobile" ? 28 : 34,
+                      height: screenSize === "mobile" ? 28 : 34,
+                      borderRadius: 999,
+                      border: "2px solid rgba(251,191,36,.8)",
+                      boxShadow: "inset 0 0 0 3px rgba(29,78,216,.45)",
+                    }}
+                  />
+                  <div className="min-w-0">
+                    <div
+                      className="font-bold tracking-wide avengers-title truncate"
+                      style={{ fontSize: screenSize === "mobile" ? 12 : 14 }}
+                    >
+                      JARVIS // KISHORE OS
+                    </div>
+                    {screenSize !== "mobile" && (
+                      <div className="text-[11px] opacity-70">Profile Intelligence • Ctrl/Cmd + K</div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 flex-shrink-0">
+                  {screenSize !== "mobile" && (
+                    <button onClick={clearChat} className="assistant-control">Clear</button>
+                  )}
+                  <button onClick={copyLastAnswer} className="assistant-control">{copied ? "✓" : "Copy"}</button>
+                  {screenSize !== "mobile" && (
+                    <button onClick={regenerateReply} className="assistant-control">Retry</button>
+                  )}
+                  <button
+                    onClick={() => setMinimized((v) => !v)}
+                    className="assistant-control"
+                    title={minimized ? "Expand" : "Collapse"}
+                    style={{ fontSize: 14, padding: "0.2rem 0.55rem", lineHeight: 1 }}
+                  >
+                    <motion.span
+                      animate={{ rotate: minimized ? 180 : 0 }}
+                      transition={{ duration: 0.25 }}
+                      style={{ display: "inline-block" }}
+                    >
+                      ▲
+                    </motion.span>
+                  </button>
+                  <button onClick={() => setOpen(false)} className="assistant-control">✕</button>
+                </div>
+              </div>
+            </div>
+
+            {!minimized && (
+              <>
+                <div
+                  ref={scrollRef}
+                  className="p-5 overflow-y-auto"
+                  style={{
+                    flex: "1 1 0",
+                    minHeight: 0,
+                    background:
+                      "radial-gradient(circle at 20% 18%, rgba(37,99,235,.18), transparent 30%), radial-gradient(circle at 80% 8%, rgba(220,38,38,.18), transparent 32%), rgba(2,6,23,.55)",
+                  }}
+                >
+                  {messages.map((m) => renderMessage(m))}
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 8,
+                    padding: "10px 14px",
+                    borderTop: "1px solid rgba(148,163,184,.2)",
+                    borderBottom: "1px solid rgba(148,163,184,.2)",
+                    background: "rgba(15,23,42,.86)",
+                  }}
+                >
+                  {SUGGESTED_QUESTIONS.map((q) => (
+                    <button
+                      key={q}
+                      onClick={() => sendMessage(q)}
+                      className="assistant-control"
+                      style={{ fontSize: 12, padding: "0.42rem 0.72rem" }}
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="p-3" style={{ background: "rgba(2,6,23,.94)" }}>
+                  <div className="flex gap-2">
+                    <input
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                      placeholder="Ask profile, projects, or internship details..."
+                      className={`flex-1 px-3 ${screenSize === "mobile" ? "py-3" : "py-2"} rounded-lg outline-none bg-slate-800 text-slate-50 font-medium caret-amber-400 placeholder:text-slate-500 border border-slate-500 focus:border-amber-400/70 transition-colors`}
+                    />
+                    <button onClick={sendMessage} disabled={loading} className="premium-btn px-4 py-2">
+                      {loading ? "..." : "Send"}
+                    </button>
+                  </div>
+                  {screenSize !== "mobile" && (
+                    <div className="text-xs mt-2 opacity-70 text-slate-300 flex items-center justify-between">
+                      <span>OpenAI powered - concise mode</span>
+                      <span>50 words default | 100 for projects</span>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
+  );
 }

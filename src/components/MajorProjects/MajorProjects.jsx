@@ -9,6 +9,7 @@ import Bookstore from "../../assets/images/projects/Bookstore.png"
 import Linktree from "../../assets/images/projects/linktree.png"
 import Devchronicles from "../../assets/images/projects/projectweb.png"
 import GlitchText from "../Effects/Glitch";
+import AvengersGlyph from "../Effects/AvengersGlyph";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -158,7 +159,7 @@ const Featured = () => {
 	];
 
 	return (
-		<section ref={sectionRef} id="projects" className="py-3 bg-slate-950 p-3">
+		<section ref={sectionRef} id="projects" className="py-3 p-3">
 			<h2
 				ref={revealTitle}
 				className="text-2xl md:text-3xl font-bold font-poppins text-primary mb-8"
@@ -170,7 +171,7 @@ const Featured = () => {
 					{featuredProjects.map(({ frontmatter, html }, i) => (
 						<div
 							key={i}
-							className="grid grid-cols-1 md:grid-cols-12 gap-2 mb-8"
+							className="grid grid-cols-1 md:grid-cols-12 gap-3 mb-8 premium-surface p-3"
 						>
 							<div className="col-span-7 md:col-span-6 my-auto relative group border-l-4 border-secondary p-1">
 								<a
@@ -199,7 +200,8 @@ const Featured = () => {
 								className="col-span-7 md:col-span-6 "
 							>
 								<div className="p-1 md:p-6 border-r-2 md:border-r-4 border-secondary-content transition-transform transform hover:translate-y-[-5px]">
-									<h4 className="text-sm md:text-base font-space font-bold  text-[#ADA8C3]   mb-2">
+									<h4 className="text-sm md:text-base font-space font-bold text-[#ADA8C3] mb-2 flex items-center gap-2">
+										<AvengersGlyph size={16} />
 										Personal Project
 									</h4>
 									<h5 className="text-xl md:text-2xl text-gray-100 font-poppins font-semibold md:mb-4 mb-2">
@@ -225,8 +227,9 @@ const Featured = () => {
 											{frontmatter.tech.map((tech, i) => (
 												<li
 													key={i}
-													className="font-space font-semibold text-xs md:text-smish text-[#fbecd7]  mr-2 mb-2 whitespace-nowrap"
+													className="font-space font-semibold text-xs md:text-smish text-[#fbecd7] mr-2 mb-2 whitespace-nowrap flex items-center gap-1"
 												>
+													<AvengersGlyph size={12} />
 													{tech}
 												</li>
 											))}
@@ -242,7 +245,7 @@ const Featured = () => {
 												aria-label="GitHub Link"
 											>
 												<img
-													className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8 fill-white"
+													className="lg:w-12 lg:h-12 md:w-10 md:h-10 h-8 w-8 fill-white icon-avengers"
 													src={github}
 													alt="GitHub"
 												/>
@@ -256,7 +259,7 @@ const Featured = () => {
 												className="text-lightestSlate hover:text-primary"
 												aria-label="External Link"
 											>
-												<button className="btn btn-outline btn-md border border-blue-900  font-poppins text-slate-300 hover:bg-primary transition-all duration-200  hover:bg-gradient-to-r from-blue-400 via-sky-600 to-blue-400 hover:text-slate-900">
+												<button className="premium-btn btn-md font-poppins">
 													Preview
 												</button>
 											</a>

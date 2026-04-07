@@ -32,7 +32,7 @@ const Socials = () => {
 	return (
 		<div
 			ref={socialsRef}
-			className="max-sm:hidden w-[5vw] h-screen bg-slate-950 flex flex-col justify-end items-center pl-4 sm:pl-2"
+			className="max-sm:hidden w-[5vw] h-screen avengers-rail flex flex-col justify-end items-center pl-4 sm:pl-2"
 		>
 			<a href="https://www.linkedin.com/in/ponnala-venkata-padma-kishor-76679326a/">
 				<img src={linkedin} alt="LinkedIn" className="w-8 h-8 m-2" />
@@ -44,7 +44,7 @@ const Socials = () => {
 				<img src={leetcode} alt="LeetCode" className="w-auto h-8 m-2" />
 			</a>
 			<div className="w-full flex justify-center">
-				<div className="bottom-0 h-[11vh] w-0.5 bg-blue-400"></div>
+				<div className="bottom-0 h-[11vh] w-0.5 bg-gradient-to-b from-red-400 via-amber-300 to-blue-400"></div>
 			</div>
 		</div>
 	);

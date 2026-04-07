@@ -45,12 +45,12 @@ const Languages = () => {
 		<section
 			ref={sectionRef}
 			id="contact"
-			className="flex flex-col p-3 bg-slate-950 min-h-[20vh]"
+			className="flex flex-col p-3 min-h-[20vh] premium-surface"
 		>
-			<h2 ref={sectionRef} className="text-2xl md:text-3xl font-bold font-poppins text-slate-200 mb-1">
+			<h2 ref={sectionRef} className="text-2xl md:text-3xl font-bold font-poppins mb-1 avengers-title">
 				<GlitchText ref={headingRef} text="Get in touch" />
 			</h2>
-			<div className=" m-3 max-w-[70%]">
+			<div className="m-3 max-w-full md:max-w-[78%]">
 				<h1 className="text-purple-200  text-md md:text-xl font-poppins mt-2">
 					Send me an email at
 				</h1>
@@ -71,7 +71,7 @@ const Languages = () => {
 					</div>
 
 				</a>
-				<h1 className="max-w-[100%] text-secondary text-md md:text-xl font-poppins ">
+				<h1 className="max-w-[100%] text-slate-300 text-md md:text-xl font-poppins ">
 				I'm always open to discussing new projects, creative ideas, or opportunities to be a part of your vision.
 				Feel free to reach out to me using my email
 				</h1>

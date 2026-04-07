@@ -6,6 +6,7 @@ import cpp from "../../assets/whiteicons/icons8-c++.svg";
 import python from "../../assets/whiteicons/icons8-python.svg";
 import js from "../../assets/whiteicons/icons8-javascript.svg";
 import GlitchText from "../Effects/Glitch";
+import AvengersGlyph from "../Effects/AvengersGlyph";
 
 const Languages = () => {
     const sectionRef = useRef(null);
@@ -86,6 +87,9 @@ const Languages = () => {
                             className="w-auto h-8 md:h-10 lg:h-12 mx-2 object-contain transition-transform transform hover:scale-110 hover:drop-shadow-[0px_0px_10px_rgba(255,255,255,0.5)]"
                             style={{ maxWidth: "100%" }}
                         />
+						<div className="mt-1">
+							<AvengersGlyph size={18} />
+						</div>
                         <h3 className="text-sm md:text-lg font-semibold mt-2 text-secondary text-center">
                             {item.title}
                         </h3>

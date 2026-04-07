@@ -116,9 +116,9 @@ const Experience = () => {
 		<section
 			id="experience"
 			ref={sectionRef}
-			className="flex flex-col p-3 py-8"
+			className="flex flex-col p-5 py-10 rounded-2xl hud-experience"
 		>
-			<h2 ref={headingRef} className="text-2xl md:text-3xl font-bold font-poppins text-gray-100 mb-8">
+			<h2 ref={headingRef} className="text-2xl md:text-4xl font-bold font-poppins mb-8 avengers-title">
 				<GlitchText ref={headingRef} text="Where I've Worked" />
 			</h2>
 			<div className="flex flex-col md:flex-row max-w-2xl">
@@ -137,9 +137,9 @@ const Experience = () => {
 							aria-selected={activeTabId === i ? true : false}
 							aria-controls={`panel-${i}`}
 							tabIndex={activeTabId === i ? "0" : "-1"}
-							className={`btn-square btn-ghost w-full text-left font-space text-slate-300 font-bold text-sm py-2 px-4 min-w-[150px] ${activeTabId === i
-								? "border-l-4 border-t-0 border-b-0 border-r-0 border-[#858DFF] text-[#858DFF]"
-								: "border-l-4 border-t-0 border-b-0 border-r-0 border-gray-400"
+							className={`premium-btn w-full text-left font-space font-bold text-sm py-3 px-5 min-w-[180px] rounded-lg transition-all ${activeTabId === i
+								? "border-l-4 border-t-0 border-b-0 border-r-0 border-amber-400 text-amber-300 shadow-[0_0_16px_rgba(247,195,95,0.25)]"
+								: "border-l-4 border-t-0 border-b-0 border-r-0 border-slate-600 text-slate-400 hover:text-slate-200 hover:border-amber-400/50"
 								}`}
 						>
 							{job.buttonText}
@@ -152,24 +152,24 @@ const Experience = () => {
 						<div
 							key={i}
 							ref={(el) => (panels.current[i] = el)}
-							className={`job-panel ${activeTabId === i ? "opacity-100" : "opacity-0 hidden"
+							className={`job-panel p-4 rounded-xl border border-amber-400/15 bg-slate-900/30 ${activeTabId === i ? "opacity-100" : "opacity-0 hidden"
 								}`}
 						>
-							<h4 className="2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg text-slate-500 font-bold font-poppins mb-2">
+							<h4 className="2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg text-slate-100 font-bold font-poppins mb-2">
 								{job.title}
-								<span className="text-[#858DFF] ">
-									&nbsp;at&nbsp;
+								<span className="text-[#40a7ff]">
+									&nbsp;@&nbsp;
 									<a
 										href={job.url}
 										target="_blank"
 										rel="nofollow noopener noreferrer"
-										className="underline"
+										className="underline text-amber-300 hover:text-amber-200 transition-colors"
 									>
 										{job.company}
 									</a>
 								</span>
 							</h4>
-							<h5 className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base text-sm font-roboto font-bold text-gray-100 mb-4">
+							<h5 className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base text-sm font-roboto font-bold text-amber-300/90 mb-4">
 								{job.range}
 							</h5>
 							<div

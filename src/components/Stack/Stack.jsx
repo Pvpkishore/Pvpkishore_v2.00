@@ -5,9 +5,11 @@ import Libraries from "../Libraries/Libraries";
 
 const Stack = () => {
 	return (
-		<div id="skills">
+		<div id="skills" className="premium-surface mt-3 pt-3">
 			<Languages />
+			<div className="avengers-divider" />
 			<Frameworks />
+			<div className="avengers-divider" />
 			<Libraries />
 		</div>
 	);

@@ -64,7 +64,7 @@ const AboutSection = () => {
 	
 
 	return (
-		<div className="flex flex-col md:flex-row items-center p-3 lg:py-6 py-3 mt-10 ">
+		<div className="flex flex-col md:flex-row items-center p-3 lg:py-6 py-3 mt-10 premium-surface hud-hero">
 			<div className="md:w-4/6 lg:w-2/3 mt-10 md:mt-0 sm:mt-0">
 				<h4
 					ref={hiRef}
@@ -74,7 +74,7 @@ const AboutSection = () => {
 				</h4>
 				<h1
                     ref={nameRef}
-					className="2xl:text-8xl cursor-default lg:text-7xl text-5xl text-sky-400 font-poppins font-bold text-left mb-2"
+					className="2xl:text-8xl cursor-default lg:text-7xl text-5xl avengers-title font-poppins font-bold text-left mb-2"
 				>
 					<GlitchText ref={nameRef} text="PVP Kishore."/>
 				</h1>
@@ -88,10 +88,10 @@ const AboutSection = () => {
 					ref={descriptionRef}
 					className="2xl:text-3xl lg:text-lg text-sm text-slate-100 font-roboto md:text-justify mb-5"
 				>
-					I am a year three student at{" "}
+					I am a fourth year student at{" "}
 					<a
 						href="https://nitc.ac.in/"
-						className="text-teal-200  font-bold font-roboto"
+						className="text-amber-200 font-bold font-roboto"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -136,21 +136,40 @@ const AboutSection = () => {
 						<a href={resume} target="_blank">
 				
 							<RippleButton ref={(el) => (logosRef.current[3] = el)} 
-							className="btn text-slate-100  font-poppins">
+							className="premium-btn font-poppins">
                                       Resume
                            </RippleButton>
 						</a>
 					</li>
 				</ul>
 			</div>
-			<div ref={picRef} className="md:w-2/6 lg:w-1/3">
-				<TiltImage
-                src={picture} // Replace with your image URL
-                alt="3D Tilt Effect"
-				width={300}
-                height={300}
-				className="w-full md:max-w-xs lg:max-w-sm xl:max-w-md 2xl:max-w-lg m-auto p-10 md:p-9 h-auto border-sky-70000"
-            />
+			<div ref={picRef} className="md:w-2/6 lg:w-1/3 flex items-center justify-center py-12 md:py-0">
+				<div className="hero-avatar-frame" style={{ width: 240, height: 240 }}>
+					{/* Rings */}
+					<div className="hero-ring-outer" />
+					<div className="hero-ring-mid" />
+					<div className="hero-ring-inner" />
+					{/* Ambient glow */}
+					<div className="hero-avatar-glow" />
+					{/* Scan line */}
+					<div className="hero-scan-wrap" />
+					{/* HUD corner brackets */}
+					<span className="hero-corner hero-corner-tl" />
+					<span className="hero-corner hero-corner-tr" />
+					<span className="hero-corner hero-corner-bl" />
+					<span className="hero-corner hero-corner-br" />
+					{/* Avatar image with 3D tilt */}
+					<div style={{ position: "relative", zIndex: 1 }}>
+						<TiltImage
+							src={picture}
+							alt="PVP Kishore"
+							width={240}
+							height={240}
+						/>
+					</div>
+					{/* Online status dot */}
+					<div className="hero-status-dot" />
+				</div>
 			</div>
 		</div>
 	);
