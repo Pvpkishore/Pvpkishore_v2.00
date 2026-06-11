@@ -78,6 +78,7 @@ const Experience = () => {
 		{
 			company: "Prodigy Infotech",
 			title: "Full Stack Developer Intern",
+			location: "Remote",
 			url: "https://prodigyinfotech.dev/",
 			range: "Nov 2024 - Dec 2024",
 			html: `
@@ -95,6 +96,7 @@ const Experience = () => {
 		{
 			company: "Afame Technologies",
 			title: "Web Developer Intern",
+			location: "Remote",
 			url: "https://afame.in/web-development/",
 			range: "Oct 2024 - Nov 2024",
 			html: `
@@ -155,6 +157,7 @@ const Experience = () => {
 							className={`job-panel p-4 rounded-xl border border-amber-400/15 bg-slate-900/30 ${activeTabId === i ? "opacity-100" : "opacity-0 hidden"
 								}`}
 						>
+						<div>
 							<h4 className="2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg text-slate-100 font-bold font-poppins mb-2">
 								{job.title}
 								<span className="text-[#40a7ff]">
@@ -169,9 +172,17 @@ const Experience = () => {
 									</a>
 								</span>
 							</h4>
-							<h5 className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base text-sm font-roboto font-bold text-amber-300/90 mb-4">
-								{job.range}
-							</h5>
+							<div className="flex flex-col md:flex-row md:items-center md:gap-4 mb-4">
+								<h5 className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base text-sm font-roboto font-bold text-amber-300/90">
+									{job.range}
+								</h5>
+								{job.location && (
+									<span className="2xl:text-lg xl:text-base lg:text-sm md:text-xs text-xs font-roboto text-blue-400 flex items-center gap-1 px-2 py-1 rounded bg-blue-400/10 border border-blue-400/30 avengers-badge">
+										⚔️ {job.location}
+									</span>
+								)}
+							</div>
+						</div>
 							<div
 								className="2xl:text-md xl:text-md lg:text-base md:text-sm text-sm font-roboto text-gray-100 text-justify"
 								dangerouslySetInnerHTML={{ __html: job.html }}

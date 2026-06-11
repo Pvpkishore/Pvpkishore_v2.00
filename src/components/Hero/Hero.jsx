@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import picture from "../../assets/images/My Avatar1.svg";
 import leetcode from "../../assets/icons-white/icons8-Leetcode-white.png";
 import linkedin from "../../assets/icons-white/icons8-linkedin-white.png";
@@ -64,7 +64,7 @@ const AboutSection = () => {
 	
 
 	return (
-		<div className="flex flex-col md:flex-row items-center p-3 lg:py-6 py-3 mt-10 premium-surface hud-hero">
+		<div className="flex flex-col md:flex-row items-center p-3 lg:py-6 py-3 mt-10 ">
 			<div className="md:w-4/6 lg:w-2/3 mt-10 md:mt-0 sm:mt-0">
 				<h4
 					ref={hiRef}
@@ -88,18 +88,16 @@ const AboutSection = () => {
 					ref={descriptionRef}
 					className="2xl:text-3xl lg:text-lg text-sm text-slate-100 font-roboto md:text-justify mb-5"
 				>
-					I am a fourth year student at{" "}
+					A recent B.Tech graduate from{" "}
 					<a
 						href="https://nitc.ac.in/"
-						className="text-amber-200 font-bold font-roboto"
+						className="text-teal-200  font-bold font-roboto"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						NIT Calicut
 					</a>
-					, doing Civil Engineering. Intrested in Tech and I build websites,C++ Developer
-				     . I'm also a video Editor!
-					Learn more about me at:
+					. I am passionate about building impactful digital products and scalable web applications, with a strong interest in full-stack development and modern web technologies.
 				</p>
 				<ul className="flex flex-wrap">
 					<li className="m-3">

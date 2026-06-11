@@ -1,13 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import github from "../../assets/icons-white/github-white-icon.png";
 import passop from  "../../assets/images/projects/PassOp.png";
 import GitHubGlazer from "../../assets/images/projects/GitG.png";
+import FinPilotAI from "../../assets/images/projects/finpilot.png";
 import Bookstore from "../../assets/images/projects/Bookstore.png"
-import Linktree from "../../assets/images/projects/linktree.png"
-import Devchronicles from "../../assets/images/projects/projectweb.png"
 import GlitchText from "../Effects/Glitch";
 import AvengersGlyph from "../Effects/AvengersGlyph";
 
@@ -68,6 +67,29 @@ const Featured = () => {
 	const featuredProjects = [
 		{
 			frontmatter: {
+				title: "FinPilot AI",
+				github: "https://github.com/Pvpkishore/FinPilot",
+				external: "https://finpilot-one.vercel.app/login",
+				tech: [
+					"React + Vite",
+					"Tailwind CSS",
+					"GSAP",
+					"Redux Toolkit",
+					"Node.js",
+					"Express",
+					"MongoDB",
+					"Socket.io",
+					"OpenAI API",
+				],
+				cover: {
+					src: FinPilotAI,
+					alt: "FinPilot AI",
+				},
+			},
+			html: "<p>FinPilot AI is a production-style AI-powered personal finance SaaS platform with real-time expense tracking, intelligent dashboards, goal planning, investment simulation, and secure JWT plus Google OAuth authentication. Its AI Copilot gives personalized budgeting, savings, and investment guidance in Strict and Chill modes.</p>",
+		},
+		{
+			frontmatter: {
 				external: "https://passop-kishore.vercel.app/",
 				title: "PassOP",
 				tech: [
@@ -85,19 +107,6 @@ const Featured = () => {
 			},
 			html: "<p>Passop is a secure password manager that allows users to store website URLs, usernames, and passwords. It offers features to easily add, edit, or delete entries, providing a safe and efficient way to manage sensitive login credentials.</p>",
 		},
-		// {
-		// 	frontmatter: {
-		// 		external: "https://youtube-videoconverter.onrender.com/",
-		// 	    title: "youtube video converter",
-		// 		tech: ["Html/css","javascript","NodeJs","Bootstrap"],
-		// 		github: "https://github.com/Pvpkishore/Youtube-videoconverter",
-		// 		cover: {
-		// 			src:  Videoconverter,
-		// 			alt: " Videoconverter"
-		// 		},
-		// 	},
-		//     html: "<p>The YouTube downloader converts YouTube URLs into downloadable files, ensuring seamless video retrieval and user interaction with efficient server-side logic and session management for a smooth experience.</p>",
-		// },
 		{
 			frontmatter: {
 				// external: "https://passop-kishore.vercel.app/",
@@ -120,42 +129,17 @@ const Featured = () => {
 		{
 			frontmatter: {
 				external: "https://github-glazer-kishore.vercel.app/",
-			    title: "GitHub Glazer",
+				title: "GitHub Glazer",
 				tech: ["Typescript","React","OpenAI","Tailwindcss"],
 				github: "https://github.com/Pvpkishore/GitHub_glazer",
 				cover: {
 					src: GitHubGlazer,
 					alt: "GitHubGlazer"
 				},
-			},		
-			html: "<p>Built with Typescript and React on Vite and using the OpenAI API for generating words of encouragement, the Github Glazer app is perfect to encourage you on your path to be an amazing software developer.</p>",	
+			},
+			html: "<p>Built with Typescript and React on Vite and using the OpenAI API for generating words of encouragement, the Github Glazer app is perfect to encourage you on your path to be an amazing software developer.</p>",
 		},
-		{
-			frontmatter: {
-				external: "https://linktrekishore.vercel.app/",
-			    title: "Bittree",
-				tech: ["javascript","Nextjs","ExpressJs","Tailwindcss"],
-				github: "https://github.com/Pvpkishore/my-app",
-				cover: {
-					src: Linktree,
-					alt: "Linktree"
-				},
-			},		
-			html: "<p>Bittree is a Linktree Clone a web app built with Next.js, Tailwind CSS, and Express.js, enabling users to create customizable link-sharing pages. With a responsive, modern UI, secure backend handling, and fast performance, it replicates Linktree's functionality while offering scalability, personalization, and seamless management of multiple links through a single URL.</p>",	
-		},
-		{
-			frontmatter: {
-				external: "https://project-web-kishore.vercel.app/",
-			        title: "Devchronicles",
-				tech: ["javascript","Reactjs","Material UI","Tailwindcss"],
-				github: "https://github.com/Pvpkishore/Project_Web",
-				cover: {
-					src: Devchronicles,
-					alt: "Devchronicles"
-				},
-			},		
-			html: "<p>DevChronicles is a modern portfolio showcasing projects in JavaScript, React, Backend, and Full-Stack development. Built with React.js, Tailwind CSS, and Material UI, it features responsive design, smooth navigation, light/dark themes, and categorized sections. It highlights creativity, technical skills, and innovation, providing a seamless experience across all devices.</p>",	
-		},
+	
 	];
 
 	return (
