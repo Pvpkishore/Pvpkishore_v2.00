@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { Link, animateScroll as scroll } from "react-scroll";
-import resume from "../../assets/resume/Resume_superset_updated.pdf";
+import resume from "../../assets/resume/pvpkishore_ResumeDel.pdf";
 import ElasticText from "../Effects/Elastic";
+import useScrollDirection from "../../hooks/useScrollDirection";
 
 const NAV_SECTIONS = ["Experience", "Skills", "Projects", "Interview", "Contact"];
 
@@ -11,6 +12,7 @@ const Navbar = () => {
 	const menuItemsRef = useRef([]);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isSticky, setIsSticky] = useState(false);
+	const scrollDirection = useScrollDirection();
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -48,7 +50,7 @@ const Navbar = () => {
 		<div
 			className={`top-0 navbar justify-center fixed w-full transition-all duration-300 ease-in-out px-2 md:px-4 ${
 				isSticky ? "shadow-xl bg-opacity-100" : ""
-			} z-50`}
+			} ${scrollDirection === "down" && !isOpen ? "-translate-y-full" : "translate-y-0"} z-50`}
 			style={{
 				background:
 					"linear-gradient(100deg, rgba(10,18,40,0.97), rgba(18,30,66,0.95), rgba(74,20,28,0.9))",

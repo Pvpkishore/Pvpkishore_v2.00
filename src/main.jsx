@@ -11,7 +11,7 @@ const AppRoot = () => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const timer = setTimeout(() => setLoading(false), 1300);
+		const timer = setTimeout(() => setLoading(false), 250);
 		return () => clearTimeout(timer);
 	}, []);
 

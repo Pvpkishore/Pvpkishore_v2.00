@@ -1,16 +1,20 @@
-import React, { useEffect, useRef } from "react";
+import React, { lazy, Suspense, useEffect, useRef } from "react";
 import Hero from "../Hero/Hero";
 import Experience from "../Experience/Experience";
-import Stack from "../Stack/Stack";
-import Featured from "../MajorProjects/MajorProjects";
-import Projects from "../Projects/Projects";
-import InterviewExperience from "../InterviewExperience/InterviewExperience";
-import Contact from "../Contact/Contact";
+import CareerJourney from "../CareerJourney/CareerJourney";
 import Footer from "../Footer/Footer";
 import ChatAssistant from "../AIAssistant/ChatAssistant";  // <-- ADD THIS
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const Stack = lazy(() => import("../Stack/Stack"));
+const Featured = lazy(() => import("../MajorProjects/MajorProjects"));
+const Projects = lazy(() => import("../Projects/Projects"));
+const InterviewExperience = lazy(() => import("../InterviewExperience/InterviewExperience"));
+const Contact = lazy(() => import("../Contact/Contact"));
+
+const SectionFallback = () => <div className="h-24 md:h-32" aria-hidden="true" />;
 
 const reveal = {
 	hidden: { opacity: 0, y: 28 },
@@ -63,19 +67,32 @@ const BodyCont = () => {
 					<Experience />
 				</motion.div>
 				<motion.div ref={(el) => (sectionRefs.current[2] = el)} className="cinematic-section" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-					<Stack />
+					<CareerJourney />
 				</motion.div>
 				<motion.div ref={(el) => (sectionRefs.current[3] = el)} className="cinematic-section" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-					<Featured />
+					<Suspense fallback={<SectionFallback />}>
+						<Stack />
+					</Suspense>
 				</motion.div>
 				<motion.div ref={(el) => (sectionRefs.current[4] = el)} className="cinematic-section" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-					<Projects />
+					<Suspense fallback={<SectionFallback />}>
+						<Featured />
+					</Suspense>
 				</motion.div>
 				<motion.div ref={(el) => (sectionRefs.current[5] = el)} className="cinematic-section" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-					<InterviewExperience />
+					<Suspense fallback={<SectionFallback />}>
+						<Projects />
+					</Suspense>
 				</motion.div>
 				<motion.div ref={(el) => (sectionRefs.current[6] = el)} className="cinematic-section" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-					<Contact />
+					<Suspense fallback={<SectionFallback />}>
+						<InterviewExperience />
+					</Suspense>
+				</motion.div>
+				<motion.div ref={(el) => (sectionRefs.current[7] = el)} className="cinematic-section" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+					<Suspense fallback={<SectionFallback />}>
+						<Contact />
+					</Suspense>
 				</motion.div>
 				<div className="avengers-divider my-4" />
 				<Footer />
